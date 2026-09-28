@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChemE English — Vocabulary Trainer</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root, [data-theme="dark"]{
+    --bg1:#0b1220; --bg2:#101a2e;
+    --card:#16233c; --card2:#1c2c49;
+    --line:#26375a;
+    --txt:#e8eefc; --mut:#9fb0d0;
+    --acc:#3ddc97; --acc2:#22c3a6;
+    --headBg:linear-gradient(135deg,#16233c,#1b2b48);
+    --optBg:#1c2c49; --enBg:#132443; --qBg:#0f1c33;
+    --btnTxt:#e8eefc; --primTxt:#04231a;
+    --okBg1:#1f6f4d; --okBg2:#17563c; --okBorder:#31d68f;
+    --okKeyBg:#31d68f; --okKeyTxt:#04231a;
+    --badBg1:#6f2430; --badBg2:#521a24; --badBorder:#ff6b6b;
+    --badKeyBg:#ff6b6b; --badKeyTxt:#2a0007;
+    --goodTxt:#4ee6a4; --badTxt:#ff8f8f;
+    --pageBg:radial-gradient(1200px 600px at 80% -10%, #1b3a5c 0%, transparent 60%),
+              radial-gradient(900px 500px at -10% 110%, #23405e 0%, transparent 55%),
+              linear-gradient(180deg, #0b1220, #101a2e);
+  }
+  [data-theme="light"]{
+    --bg1:#eef3f9; --bg2:#dbe6f2;
+    --card:#ffffff; --card2:#f4f8fc;
+    --line:#c9d7e6;
+    --txt:#1a2740; --mut:#5a6b85;
+    --acc:#12a37a; --acc2:#0e8a66;
+    --headBg:linear-gradient(135deg,#ffffff,#eaf2fb);
+    --optBg:#f4f8fc; --enBg:#e8f0fa; --qBg:#ffffff;
+    --btnTxt:#1a2740; --primTxt:#ffffff;
+    --okBg1:#c9f2de; --okBg2:#a6e8c6; --okBorder:#12a37a;
+    --okKeyBg:#12a37a; --okKeyTxt:#ffffff;
+    --badBg1:#ffdadf; --badBg2:#ffc0c8; --badBorder:#d94848;
+    --badKeyBg:#d94848; --badKeyTxt:#ffffff;
+    --goodTxt:#0e8a66; --badTxt:#d94848;
+    --pageBg:radial-gradient(1000px 500px at 80% -10%, #ffffff 0%, transparent 60%),
+              linear-gradient(180deg, #eef3f9, #dbe6f2);
+  }
+  [data-theme="sky"]{
+    --bg1:#b3e5fc; --bg2:#e1f5fe;
+    --card:#ffffff; --card2:#f0f9ff;
+    --line:#a2d5ef;
+    --txt:#0d3d5c; --mut:#4d7a97;
+    --acc:#1e88e5; --acc2:#42a5f5;
+    --headBg:linear-gradient(135deg,#e3f2fd 0%,#bbdefb 60%,#90caf9 100%);
+    --optBg:#f1f9fe; --enBg:#e1f5fe; --qBg:#ffffff;
+    --btnTxt:#0d3d5c; --primTxt:#ffffff;
+    --okBg1:#c8e6c9; --okBg2:#a5d6a7; --okBorder:#2e7d32;
+    --okKeyBg:#2e7d32; --okKeyTxt:#ffffff;
+    --badBg1:#ffcdd2; --badBg2:#ef9a9a; --badBorder:#c62828;
+    --badKeyBg:#c62828; --badKeyTxt:#ffffff;
+    --goodTxt:#2e7d32; --badTxt:#c62828;
+    --pageBg:
+      radial-gradient(900px 400px at 85% -5%, #ffffff 0%, transparent 55%),
+      radial-gradient(700px 350px at 15% 110%, #ffffff 0%, transparent 55%),
+      linear-gradient(180deg, #b3e5fc 0%, #cfeaff 40%, #e1f5fe 100%);
+  }
+  html,body{min-height:100%}
+  body{
+    font-family:"Segoe UI",Tahoma,system-ui,-apple-system,sans-serif;
+    background:var(--pageBg);
+    color:var(--txt); min-height:100vh; padding:12px;
+    line-height:1.7;
+    transition: background .3s, color .3s;
+    background-attachment:fixed;
+  }
+  .wrap{max-width:900px;margin:0 auto}
+
+  header{
+    position:relative;
+    background:var(--headBg);
+    border:1px solid var(--line); border-radius:18px;
+    padding:18px 18px 16px; text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.18);
+  }
+  .themeSwitch{
+    position:absolute; top:12px; left:12px;
+    display:flex; gap:6px; background:var(--card2);
+    border:1px solid var(--line); border-radius:12px; padding:4px;
+  }
+  .themeSwitch button{
+    border:none; background:transparent; cursor:pointer;
+    width:32px; height:32px; border-radius:9px; font-size:1rem;
+    color:var(--txt); transition:.18s; display:grid; place-items:center;
+  }
+  .themeSwitch button:hover{background:var(--optBg)}
+  .themeSwitch button.on{
+    background:linear-gradient(135deg,var(--acc),var(--acc2));
+    color:var(--primTxt);
+  }
+  .univBlock{display:flex; flex-direction:column; gap:2px; padding:0 44px;}
+  .univBlock .u1{font-size:.95rem; font-weight:800; color:var(--txt); letter-spacing:.2px}
+  .univBlock .u2{font-size:.85rem; font-weight:700; color:var(--txt); opacity:.92}
+  .univBlock .u3{font-size:.8rem; color:var(--mut); direction:ltr}
+  .univBlock .u4{
+    margin-top:8px; font-size:1.05rem; font-weight:900; letter-spacing:.3px;
+    background:linear-gradient(135deg,var(--acc),var(--acc2));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    direction:ltr;
+  }
+  .statsBar{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:12px}
+  .chip{
+    background:var(--card2); border:1px solid var(--line);
+    border-radius:11px; padding:5px 11px; font-size:.78rem; color:var(--mut);
+  }
+  .chip b{color:var(--txt)}
+
+  .screen{display:none; margin-top:14px}
+  .screen.active{display:block; animation:fade .35s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(8px)} to{opacity:1;transform:none}}
+
+  .panel{
+    background:var(--card); border:1px solid var(--line);
+    border-radius:18px; padding:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+  }
+  .panel h2{font-size:1.05rem; margin-bottom:6px}
+  .panel .sub{color:var(--mut); font-size:.85rem; margin-bottom:14px}
+
+  .topics{display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:10px}
+  .topic{
+    background:var(--card2); border:1px solid var(--line);
+    border-radius:14px; padding:13px; cursor:pointer; transition:.18s;
+    text-align:right; display:flex; flex-direction:column; gap:3px;
+  }
+  .topic:hover{transform:translateY(-3px); border-color:var(--acc);
+    box-shadow:0 8px 22px rgba(30,136,229,.15)}
+  .topic .ic{font-size:1.35rem}
+  .topic .nm{font-weight:700; font-size:.9rem; direction:ltr; text-align:right}
+  .topic .nmAr{font-size:.76rem; color:var(--mut)}
+  .topic .cnt{font-size:.72rem; color:var(--mut)}
+
+  .row{display:flex; gap:9px; flex-wrap:wrap; margin-top:14px}
+  .btn{
+    border:none; cursor:pointer; border-radius:12px;
+    padding:10px 16px; font-family:inherit; font-weight:700; font-size:.88rem;
+    transition:.18s; background:var(--card2); color:var(--txt);
+    border:1px solid var(--line);
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn.primary{
+    background:linear-gradient(135deg,var(--acc),var(--acc2));
+    color:var(--primTxt); border:none;
+    box-shadow:0 6px 18px rgba(30,136,229,.25);
+  }
+  .btn:disabled{opacity:.45; cursor:not-allowed; transform:none}
+
+  .bar{height:8px; background:var(--optBg); border-radius:99px; overflow:hidden;
+       border:1px solid var(--line)}
+  .bar > i{display:block; height:100%; width:0;
+    background:linear-gradient(90deg,var(--acc),var(--acc2)); transition:width .3s}
+  .meta{display:flex; justify-content:space-between; font-size:.78rem;
+    color:var(--mut); margin-bottom:8px; gap:8px; flex-wrap:wrap}
+
+  .qtag{display:inline-block; font-size:.7rem; padding:3px 10px;
+    border-radius:99px; background:var(--optBg); border:1px solid var(--line);
+    color:var(--acc); margin-bottom:10px; font-weight:700}
+  .qBlock{
+    border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    background:var(--qBg);
+  }
+  .qEn{
+    direction:ltr; text-align:left; font-size:1.02rem; font-weight:700;
+    padding:13px 15px; background:var(--enBg);
+    border-bottom:1px dashed var(--line); line-height:1.65;
+  }
+  .qEn .blank{color:var(--acc); font-weight:900; letter-spacing:2px}
+  .qAr{
+    direction:rtl; text-align:right; font-size:.92rem;
+    padding:11px 15px; color:var(--txt); opacity:.92;
+  }
+
+  .opts{display:flex; flex-direction:column; gap:9px; margin-top:14px}
+  .opt{
+    display:flex; align-items:center; gap:11px;
+    direction:ltr; text-align:left;
+    background:var(--optBg); border:1.5px solid var(--line);
+    border-radius:14px; padding:12px 14px; cursor:pointer;
+    transition:.16s; font-size:.95rem; font-weight:600;
+  }
+  .opt:hover:not(.locked){border-color:var(--acc); transform:translateX(3px)}
+  .opt .key{
+    min-width:28px; height:28px; border-radius:9px; display:grid; place-items:center;
+    background:var(--qBg); border:1px solid var(--line);
+    font-weight:800; font-size:.82rem; flex-shrink:0;
+  }
+  .opt.correct{
+    background:linear-gradient(90deg,var(--okBg1),var(--okBg2));
+    border-color:var(--okBorder); color:var(--txt);
+  }
+  .opt.correct .key{background:var(--okKeyBg); color:var(--okKeyTxt); border-color:var(--okBorder)}
+  .opt.wrong{
+    background:linear-gradient(90deg,var(--badBg1),var(--badBg2));
+    border-color:var(--badBorder); color:var(--txt);
+  }
+  .opt.wrong .key{background:var(--badKeyBg); color:var(--badKeyTxt); border-color:var(--badBorder)}
+  .opt.locked{cursor:default}
+
+  .fb{margin-top:14px; border-radius:14px; padding:13px;
+    display:none; border:1px solid var(--line); background:var(--qBg)}
+  .fb.show{display:block; animation:fade .3s ease}
+  .fb .head{font-weight:800; margin-bottom:9px; font-size:.92rem}
+  .fb .en{direction:ltr; text-align:left; font-size:.88rem; color:var(--txt);
+    border-top:1px dashed var(--line); padding-top:8px; opacity:.9}
+  .fb .ar{font-size:.9rem; color:var(--txt); margin-top:8px;
+    border-top:1px dashed var(--line); padding-top:8px}
+  .fb .lbl{font-size:.68rem; color:var(--mut); display:block; margin-bottom:2px;
+    font-weight:700; letter-spacing:.3px}
+  .fb.good .head{color:var(--goodTxt)}
+  .fb.bad .head{color:var(--badTxt)}
+
+  .score{font-size:2.8rem; font-weight:900; text-align:center; letter-spacing:2px}
+  .score small{font-size:.98rem; color:var(--mut); display:block;
+    font-weight:500; letter-spacing:0; margin-top:4px}
+  .review{margin-top:14px; display:flex; flex-direction:column;
+    gap:9px; max-height:340px; overflow:auto; padding-right:4px}
+  .rItem{border:1px solid var(--line); border-radius:12px;
+    padding:11px 12px; background:var(--card2); font-size:.86rem}
+  .rItem .qEn{direction:ltr;text-align:left;font-weight:600;font-size:.86rem;
+    margin-bottom:4px}
+  .rItem .qAr{color:var(--mut);font-size:.82rem;margin-bottom:6px}
+  .rItem .a{color:var(--goodTxt); direction:ltr; text-align:left; font-size:.84rem}
+  .rItem .y{color:var(--badTxt); direction:ltr; text-align:left; font-size:.84rem}
+
+  footer{text-align:center; color:var(--mut); font-size:.74rem; margin:20px 0 6px}
+
+  @media (max-width:640px){
+    body{padding:8px}
+    header{padding:14px 12px 12px; border-radius:14px}
+    .themeSwitch{top:10px; left:10px; padding:3px}
+    .themeSwitch button{width:28px; height:28px; font-size:.9rem}
+    .univBlock{padding:0 36px}
+    .univBlock .u1{font-size:.82rem}
+    .univBlock .u2{font-size:.76rem}
+    .univBlock .u3{font-size:.72rem}
+    .univBlock .u4{font-size:.92rem}
+    .chip{font-size:.72rem; padding:4px 9px}
+    .panel{padding:14px; border-radius:14px}
+    .panel h2{font-size:.98rem}
+    .panel .sub{font-size:.8rem}
+    .topics{grid-template-columns:repeat(2,1fr); gap:8px}
+    .topic{padding:10px; border-radius:12px}
+    .topic .ic{font-size:1.15rem}
+    .topic .nm{font-size:.82rem}
+    .topic .nmAr{font-size:.7rem}
+    .topic .cnt{font-size:.68rem}
+    .btn{padding:9px 13px; font-size:.82rem}
+    .row{gap:7px}
+    .qEn{font-size:.92rem; padding:11px 12px}
+    .qAr{font-size:.85rem; padding:9px 12px}
+    .opt{padding:10px 12px; font-size:.88rem; gap:9px}
+    .opt .key{min-width:26px; height:26px; font-size:.78rem}
+    .fb .head{font-size:.86rem}
+    .fb .en{font-size:.82rem}
+    .fb .ar{font-size:.84rem}
+    .score{font-size:2rem}
+    .score small{font-size:.85rem}
+  }
+  @media (max-width:380px){
+    .topics{grid-template-columns:1fr}
+    .univBlock{padding:0 30px}
+    .univBlock .u1{font-size:.76rem}
+    .univBlock .u4{font-size:.84rem}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="themeSwitch">
+      <button data-theme="dark" title="Dark">🌙</button>
+      <button data-theme="light" title="Light">☀️</button>
+      <button data-theme="sky" title="Sky">🌤️</button>
+    </div>
+    <div class="univBlock">
+      <div class="u1">Northern Technical University</div>
+      <div class="u2">College of Technical University - Mosul</div>
+      <div class="u3">Chemical and Petroleum Industries Engineering Techniques</div>
+      <div class="u4">ChemE English — Vocabulary Trainer</div>
+    </div>
+    <div class="statsBar">
+      <span class="chip">Total: <b id="stTotal">0</b></span>
+      <span class="chip">Correct: <b id="stOk">0</b></span>
+      <span class="chip">Accuracy: <b id="stAcc">0%</b></span>
+    </div>
+  </header>
+
+  <section class="screen active" id="scHome">
+    <div class="panel">
+      <h2>اختر مجموعة المفردات</h2>
+      <p class="sub">20 سؤالًا لكل صنف — الخيارات والترتيب عشوائية في كل محاولة.</p>
+      <div class="topics" id="topics"></div>
+      <div class="row">
+        <button class="btn primary" id="btnAll">🎯 اختبار شامل (20 سؤالًا عشوائيًا)</button>
+        <button class="btn" id="btnReset">🗑️ تصفير الإحصائيات</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="scQuiz">
+    <div class="panel">
+      <div class="meta">
+        <span id="qTopic">—</span>
+        <span id="qCount">1 / 20</span>
+      </div>
+      <div class="bar"><i id="qBar"></i></div>
+
+      <div style="margin-top:16px">
+        <span class="qtag" id="qTag">المعنى</span>
+        <div class="qBlock">
+          <div class="qEn" id="qEn">…</div>
+          <div class="qAr" id="qAr">…</div>
+        </div>
+      </div>
+
+      <div class="opts" id="opts"></div>
+
+      <div class="fb" id="fb">
+        <div class="head" id="fbHead"></div>
+        <div class="ar" id="fbAr"></div>
+        <div class="en" id="fbEn"></div>
+      </div>
+
+      <div class="row">
+        <button class="btn primary" id="btnNext" disabled>التالي ←</button>
+        <button class="btn" id="btnQuit">⏹ إنهاء الاختبار والعودة للرئيسية</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="scResult">
+    <div class="panel">
+      <div class="score" id="rsScore">0 / 0 <small id="rsMsg"></small></div>
+      <div class="review" id="rsReview"></div>
+      <div class="row">
+        <button class="btn primary" id="btnAgain">🔄 إعادة</button>
+        <button class="btn" id="btnHome">🏠 الرئيسية</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>ChemE English — Vocabulary Trainer</footer>
+</div>
+
+<script>
+/* ===========================================================
+   بنك الأسئلة: 10 أصناف × 20 سؤالًا = 200 سؤال
+   =========================================================== */
+const BANK = [
+/* ===== Basic Equipment ===== */
+{t:"Basic Equipment",type:"meaning",q:'What is the meaning of "pump"?',qAr:'ما معنى "pump"؟',o:["A device that moves liquids","A device that moves gases","A device that transfers heat","A device that separates solids"],c:0,en:'"Pump" = a device that moves or raises liquids.',ar:'"Pump" = مضخة، تنقل السوائل وترفعها.'},
+{t:"Basic Equipment",type:"meaning",q:'What is the meaning of "valve"?',qAr:'ما معنى "valve"؟',o:["A device that controls fluid flow","A container for storage","A device that heats fluid","A measuring tool"],c:0,en:'"Valve" = a device that controls or regulates fluid flow in a pipe.',ar:'"Valve" = صمام، يتحكم بتدفق المائع.'},
+{t:"Basic Equipment",type:"meaning",q:'What is the meaning of "tank"?',qAr:'ما معنى "tank"؟',o:["A container for storing fluids","A device that moves fluids","A device that controls flow","A measuring tool"],c:0,en:'"Tank" = a container for storing liquids or gases.',ar:'"Tank" = خزان، وعاء لتخزين السوائل أو الغازات.'},
+{t:"Basic Equipment",type:"meaning",q:'What is the meaning of "compressor"?',qAr:'ما معنى "compressor"؟',o:["A device that increases gas pressure","A device that moves liquids","A device that separates mixtures","A device that heats fluids"],c:0,en:'"Compressor" = increases gas pressure.',ar:'"Compressor" = ضاغط، يرفع ضغط الغاز.'},
+{t:"Basic Equipment",type:"meaning",q:'What is the meaning of "pipe"?',qAr:'ما معنى "pipe"؟',o:["A hollow tube that carries fluids","A container for storage","A device that controls flow","A measuring device"],c:0,en:'"Pipe" = a hollow tube for carrying fluids.',ar:'"Pipe" = أنبوب، مجوّف ينقل الموائع.'},
+{t:"Basic Equipment",type:"meaning",q:'What is the meaning of "heat exchanger"?',qAr:'ما معنى "heat exchanger"؟',o:["A device that transfers heat between fluids","A device that stores heat","A device that moves fluids","A device that separates fluids"],c:0,en:'"Heat exchanger" transfers heat from a hot fluid to a cold one.',ar:'"Heat exchanger" = مبادل حراري.'},
+{t:"Basic Equipment",type:"translation",q:'Which English term means "مضخة"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "مضخة"؟',o:["Pump","Pipe","Valve","Tank"],c:0,en:'"Pump" = مضخة.',ar:'"Pump" = مضخة.'},
+{t:"Basic Equipment",type:"translation",q:'Which English term means "صمام"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "صمام"؟',o:["Valve","Vessel","Pipe","Pump"],c:0,en:'"Valve" = صمام.',ar:'"Valve" = صمام.'},
+{t:"Basic Equipment",type:"translation",q:'Which English term means "خزان"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "خزان"؟',o:["Tank","Pipe","Valve","Pump"],c:0,en:'"Tank" = خزان.',ar:'"Tank" = خزان.'},
+{t:"Basic Equipment",type:"translation",q:'Which English term means "أنبوب"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "أنبوب"؟',o:["Pipe","Tank","Valve","Pump"],c:0,en:'"Pipe" = أنبوب.',ar:'"Pipe" = أنبوب.'},
+{t:"Basic Equipment",type:"translation",q:'Which English term means "ضاغط"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "ضاغط"؟',o:["Compressor","Pump","Blower","Turbine"],c:0,en:'"Compressor" = ضاغط.',ar:'"Compressor" = ضاغط.'},
+{t:"Basic Equipment",type:"translation",q:'Which English term means "مبادل حراري"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "مبادل حراري"؟',o:["Heat exchanger","Heater","Cooler","Boiler"],c:0,en:'"Heat exchanger" = مبادل حراري.',ar:'"Heat exchanger" = مبادل حراري.'},
+{t:"Basic Equipment",type:"fill-blank",q:'A <span class="blank">___</span> is used to move gases and increase their pressure.',qAr:'يُستخدم الـ ___ لنقل الغازات ورفع ضغطها.',o:["pump","compressor","valve","tank"],c:1,en:'"Compressor" handles gases; "pump" handles liquids.',ar:'"Compressor" للغازات، و"Pump" للسوائل.'},
+{t:"Basic Equipment",type:"fill-blank",q:'A <span class="blank">___</span> controls the flow of fluid in a pipe.',qAr:'يتحكم الـ ___ بتدفق المائع في الأنبوب.',o:["pipe","valve","tank","reactor"],c:1,en:'"Valve" controls or regulates flow.',ar:'"Valve" = صمام التحكم بالتدفق.'},
+{t:"Basic Equipment",type:"fill-blank",q:'A <span class="blank">___</span> stores liquids for later use.',qAr:'يقوم الـ ___ بتخزين السوائل.',o:["pipe","pump","tank","valve"],c:2,en:'"Tank" is a storage container.',ar:'"Tank" = خزان تخزين.'},
+{t:"Basic Equipment",type:"fill-blank",q:'A <span class="blank">___</span> carries fluid from one unit to another.',qAr:'ينقل الـ ___ المائع من وحدة إلى أخرى.',o:["pipe","valve","tank","sensor"],c:0,en:'"Pipe" is a hollow tube that carries fluids.',ar:'"Pipe" = أنبوب النقل.'},
+{t:"Basic Equipment",type:"synonym",q:'Which word is closest in meaning to "vessel"?',qAr:'أي كلمة أقرب في المعنى إلى "vessel"؟',o:["Container","Pipe","Valve","Pump"],c:0,en:'"Vessel" is a container for fluids.',ar:'"Vessel" قريبة من "Container".'},
+{t:"Basic Equipment",type:"synonym",q:'Which word is closest in meaning to "device"?',qAr:'أي كلمة أقرب في المعنى إلى "device"؟',o:["Instrument / equipment","Fluid","Process","Material"],c:0,en:'"Device" = a piece of equipment.',ar:'"Device" = جهاز / أداة.'},
+{t:"Basic Equipment",type:"synonym",q:'Which word is closest in meaning to "equipment"?',qAr:'أي كلمة أقرب في المعنى إلى "equipment"؟',o:["Apparatus / machinery","Fluid","Product","Reaction"],c:0,en:'"Equipment" = tools and machines.',ar:'"Equipment" = معدات.'},
+{t:"Basic Equipment",type:"synonym",q:'Which word is closest in meaning to "reactor"?',qAr:'أي كلمة أقرب في المعنى إلى "reactor"؟',o:["Vessel where reactions occur","Storage tank","Heat exchanger","Pipe"],c:0,en:'"Reactor" = vessel where chemical reactions occur.',ar:'"Reactor" = مفاعل.'},
+
+/* ===== Process Actions ===== */
+{t:"Process Actions",type:"meaning",q:'What is the meaning of the verb "to heat"?',qAr:'ما معنى الفعل "to heat"؟',o:["To increase the temperature","To decrease the temperature","To increase pressure","To mix fluids"],c:0,en:'"To heat" = to increase temperature.',ar:'"To heat" = يسخّن.'},
+{t:"Process Actions",type:"meaning",q:'What is the meaning of the verb "to cool"?',qAr:'ما معنى الفعل "to cool"؟',o:["To decrease the temperature","To increase the temperature","To increase flow","To stop the process"],c:0,en:'"To cool" = to decrease temperature.',ar:'"To cool" = يبرّد.'},
+{t:"Process Actions",type:"meaning",q:'What is the meaning of the verb "to compress"?',qAr:'ما معنى الفعل "to compress"؟',o:["To reduce volume and increase pressure","To increase volume","To heat a fluid","To mix a fluid"],c:0,en:'"To compress" = reduce volume, raise pressure.',ar:'"To compress" = يضغط.'},
+{t:"Process Actions",type:"meaning",q:'What is the meaning of the verb "to vaporize"?',qAr:'ما معنى الفعل "to vaporize"؟',o:["To change from liquid to gas","To change from gas to liquid","To change from solid to liquid","To change from liquid to solid"],c:0,en:'"To vaporize" = liquid → gas.',ar:'"To vaporize" = يبخّر.'},
+{t:"Process Actions",type:"meaning",q:'What is the meaning of the verb "to condense"?',qAr:'ما معنى الفعل "to condense"؟',o:["To change from gas to liquid","To change from liquid to gas","To freeze a liquid","To melt a solid"],c:0,en:'"To condense" = gas → liquid.',ar:'"To condense" = يكثّف.'},
+{t:"Process Actions",type:"meaning",q:'What is the meaning of the verb "to filter"?',qAr:'ما معنى الفعل "to filter"؟',o:["To separate solids from liquids","To mix two liquids","To heat a fluid","To compress a gas"],c:0,en:'"To filter" = separate solids from a fluid.',ar:'"To filter" = يرشّح.'},
+{t:"Process Actions",type:"translation",q:'Which English verb means "يخلط"؟',qAr:'ما الفعل الإنجليزي الذي يعني "يخلط"؟',o:["To mix","To separate","To pump","To store"],c:0,en:'"To mix" = يخلط.',ar:'"To mix" = يخلط.'},
+{t:"Process Actions",type:"translation",q:'Which English verb means "يفصل"؟',qAr:'ما الفعل الإنجليزي الذي يعني "يفصل"؟',o:["To separate","To mix","To heat","To store"],c:0,en:'"To separate" = يفصل.',ar:'"To separate" = يفصل.'},
+{t:"Process Actions",type:"translation",q:'Which English verb means "يخزّن"؟',qAr:'ما الفعل الإنجليزي الذي يعني "يخزّن"؟',o:["To store","To pump","To heat","To mix"],c:0,en:'"To store" = يخزّن.',ar:'"To store" = يخزّن.'},
+{t:"Process Actions",type:"translation",q:'Which English verb means "يبخّر"؟',qAr:'ما الفعل الإنجليزي الذي يعني "يبخّر"؟',o:["To vaporize","To condense","To freeze","To filter"],c:0,en:'"To vaporize" = يبخّر.',ar:'"To vaporize" = يبخّر.'},
+{t:"Process Actions",type:"translation",q:'Which English verb means "يكثّف"؟',qAr:'ما الفعل الإنجليزي الذي يعني "يكثّف"؟',o:["To condense","To vaporize","To melt","To dry"],c:0,en:'"To condense" = يكثّف.',ar:'"To condense" = يكثّف.'},
+{t:"Process Actions",type:"translation",q:'Which English verb means "يرشّح"؟',qAr:'ما الفعل الإنجليزي الذي يعني "يرشّح"؟',o:["To filter","To mix","To stir","To pump"],c:0,en:'"To filter" = يرشّح.',ar:'"To filter" = يرشّح.'},
+{t:"Process Actions",type:"fill-blank",q:'To <span class="blank">___</span> means to move a fluid using a pump.',qAr:'الفعل ___ يعني نقل المائع بمضخة.',o:["pump","heat","mix","separate"],c:0,en:'"To pump" = يضخ بمضخة.',ar:'"To pump" = يضخ.'},
+{t:"Process Actions",type:"fill-blank",q:'To <span class="blank">___</span> means to send a stream back into the process.',qAr:'الفعل ___ يعني إرجاع تيار إلى العملية.',o:["recycle","vent","drain","discard"],c:0,en:'"To recycle" = إعادة التدوير.',ar:'"To recycle" = يعيد التدوير.'},
+{t:"Process Actions",type:"fill-blank",q:'To <span class="blank">___</span> means to make a mixture uniform by stirring.',qAr:'الفعل ___ يعني جعل المخلوط متجانسًا بالتحريك.',o:["mix","separate","filter","heat"],c:0,en:'"To mix" = يخلط.',ar:'"To mix" = يخلط.'},
+{t:"Process Actions",type:"fill-blank",q:'To <span class="blank">___</span> means to remove heat from a fluid.',qAr:'الفعل ___ يعني إزالة الحرارة من المائع.',o:["cool","heat","boil","burn"],c:0,en:'"To cool" = يبرّد.',ar:'"To cool" = يبرّد.'},
+{t:"Process Actions",type:"synonym",q:'Which verb is closest in meaning to "to stir"?',qAr:'أي فعل أقرب في المعنى إلى "to stir"؟',o:["To agitate / mix","To heat","To cool","To filter"],c:0,en:'"To stir" = to agitate or mix.',ar:'"To stir" قريبة من "To agitate".'},
+{t:"Process Actions",type:"synonym",q:'Which verb is closest in meaning to "to raise"?',qAr:'أي فعل أقرب في المعنى إلى "to raise"؟',o:["To increase","To decrease","To stop","To remove"],c:0,en:'"To raise" = to increase.',ar:'"To raise" = يرفع / يزيد.'},
+{t:"Process Actions",type:"synonym",q:'Which verb is closest in meaning to "to lower"?',qAr:'أي فعل أقرب في المعنى إلى "to lower"؟',o:["To decrease","To increase","To raise","To start"],c:0,en:'"To lower" = to decrease.',ar:'"To lower" = يخفض.'},
+{t:"Process Actions",type:"synonym",q:'Which verb is closest in meaning to "to shut down"?',qAr:'أي فعل أقرب في المعنى إلى "to shut down"؟',o:["To stop operation","To start operation","To speed up","To heat up"],c:0,en:'"To shut down" = to stop operation.',ar:'"To shut down" = يوقف التشغيل.'},
+
+/* ===== Properties & States ===== */
+{t:"Properties & States",type:"meaning",q:'What is the meaning of "density"?',qAr:'ما معنى "density"؟',o:["Mass per unit volume","Volume per unit mass","Force per area","Energy per time"],c:0,en:'"Density" = mass ÷ volume (kg/m³).',ar:'"Density" = الكثافة.'},
+{t:"Properties & States",type:"meaning",q:'What is the meaning of "viscosity"?',qAr:'ما معنى "viscosity"؟',o:["A fluid\u2019s resistance to flow","Ability to conduct heat","Ability to dissolve","Resistance to pressure"],c:0,en:'"Viscosity" = resistance to flow.',ar:'"Viscosity" = اللزوجة.'},
+{t:"Properties & States",type:"meaning",q:'What is the meaning of "flammable"?',qAr:'ما معنى "flammable"؟',o:["Easy to burn","Easy to dissolve","Easy to freeze","Easy to compress"],c:0,en:'"Flammable" = can catch fire easily.',ar:'"Flammable" = قابل للاشتعال.'},
+{t:"Properties & States",type:"meaning",q:'What is the meaning of "toxic"?',qAr:'ما معنى "toxic"؟',o:["Poisonous and harmful to health","Easy to burn","Very cold","Very light"],c:0,en:'"Toxic" = poisonous.',ar:'"Toxic" = سام.'},
+{t:"Properties & States",type:"meaning",q:'What is the meaning of "corrosive"?',qAr:'ما معنى "corrosive"؟',o:["Eats away metals and materials","Easy to burn","Easy to freeze","Harmless"],c:0,en:'"Corrosive" = eats away metals.',ar:'"Corrosive" = أكّال.'},
+{t:"Properties & States",type:"meaning",q:'What is the meaning of "volatile"?',qAr:'ما معنى "volatile"؟',o:["Evaporates easily","Freezes easily","Reacts easily","Sinks in water"],c:0,en:'"Volatile" = evaporates easily.',ar:'"Volatile" = متطاير.'},
+{t:"Properties & States",type:"translation",q:'Which English term means "خامل"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "خامل" (لا يتفاعل)؟',o:["Inert","Reactive","Corrosive","Volatile"],c:0,en:'"Inert" = does not react easily.',ar:'"Inert" = خامل.'},
+{t:"Properties & States",type:"translation",q:'Which English term means "أكّال"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "أكّال"؟',o:["Corrosive","Flammable","Toxic","Inert"],c:0,en:'"Corrosive" = eats away metals.',ar:'"Corrosive" = أكّال.'},
+{t:"Properties & States",type:"translation",q:'Which English term means "متطاير"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "متطاير"؟',o:["Volatile","Inert","Corrosive","Dense"],c:0,en:'"Volatile" = evaporates easily.',ar:'"Volatile" = متطاير.'},
+{t:"Properties & States",type:"translation",q:'Which English term means "سام"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "سام"؟',o:["Toxic","Inert","Flammable","Dense"],c:0,en:'"Toxic" = poisonous.',ar:'"Toxic" = سام.'},
+{t:"Properties & States",type:"translation",q:'Which English term means "قابل للاشتعال"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "قابل للاشتعال"؟',o:["Flammable","Inert","Toxic","Corrosive"],c:0,en:'"Flammable" = can catch fire.',ar:'"Flammable" = قابل للاشتعال.'},
+{t:"Properties & States",type:"translation",q:'Which English term means "لزوجة"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "لزوجة"؟',o:["Viscosity","Density","Pressure","Volume"],c:0,en:'"Viscosity" = resistance to flow.',ar:'"Viscosity" = لزوجة.'},
+{t:"Properties & States",type:"fill-blank",q:'A liquid that does not react easily is described as <span class="blank">___</span>.',qAr:'السائل الذي لا يتفاعل بسهولة يُوصف بأنه ___.',o:["inert","reactive","corrosive","volatile"],c:0,en:'"Inert" = not chemically reactive.',ar:'"Inert" = خامل كيميائيًا.'},
+{t:"Properties & States",type:"fill-blank",q:'A substance that can catch fire easily is called <span class="blank">___</span>.',qAr:'المادة التي تشتعل بسهولة تُسمى ___.',o:["flammable","inert","toxic","dense"],c:0,en:'"Flammable" = easily ignitable.',ar:'"Flammable" = قابل للاشتعال.'},
+{t:"Properties & States",type:"fill-blank",q:'A substance that damages metals by chemical action is called <span class="blank">___</span>.',qAr:'المادة التي تتلف المعادن كيميائيًا تُسمى ___.',o:["corrosive","inert","flammable","light"],c:0,en:'"Corrosive" = eats away metals.',ar:'"Corrosive" = أكّال.'},
+{t:"Properties & States",type:"fill-blank",q:'A poisonous substance is described as <span class="blank">___</span>.',qAr:'المادة السامة تُوصف بأنها ___.',o:["toxic","inert","flammable","safe"],c:0,en:'"Toxic" = poisonous.',ar:'"Toxic" = سام.'},
+{t:"Properties & States",type:"synonym",q:'Which word is closest in meaning to "hazardous"?',qAr:'أي كلمة أقرب في المعنى إلى "hazardous"؟',o:["Dangerous","Useful","Cheap","Simple"],c:0,en:'"Hazardous" = dangerous.',ar:'"Hazardous" قريبة من "Dangerous".'},
+{t:"Properties & States",type:"synonym",q:'Which word is closest in meaning to "dense"?',qAr:'أي كلمة أقرب في المعنى إلى "dense"؟',o:["Heavy per unit volume","Light per unit volume","Very hot","Very cold"],c:0,en:'"Dense" = high mass per unit volume.',ar:'"Dense" = كثيف.'},
+{t:"Properties & States",type:"synonym",q:'Which word is closest in meaning to "poisonous"?',qAr:'أي كلمة أقرب في المعنى إلى "poisonous"؟',o:["Toxic","Inert","Flammable","Safe"],c:0,en:'"Poisonous" = toxic.',ar:'"Poisonous" = سام.'},
+{t:"Properties & States",type:"synonym",q:'Which word is closest in meaning to "unstable"?',qAr:'أي كلمة أقرب في المعنى إلى "unstable"؟',o:["Not steady / can change suddenly","Very cold","Very hot","Very dense"],c:0,en:'"Unstable" = not steady.',ar:'"Unstable" = غير مستقر.'},
+
+/* ===== Measurements & Units ===== */
+{t:"Measurements & Units",type:"meaning",q:'What does "flow rate" mean?',qAr:'ما معنى "flow rate"؟',o:["Amount of fluid per unit time","The speed of a reaction","The temperature of a stream","The pressure in a pipe"],c:0,en:'"Flow rate" = volume or mass per unit time.',ar:'"Flow rate" = معدل التدفق.'},
+{t:"Measurements & Units",type:"meaning",q:'What does "pressure drop" mean?',qAr:'ما معنى "pressure drop"؟',o:["The decrease in pressure between two points","The increase in temperature","The rate of flow","The volume of fluid"],c:0,en:'"Pressure drop" (ΔP) = decrease between two points.',ar:'"Pressure drop" = هبوط الضغط.'},
+{t:"Measurements & Units",type:"meaning",q:'What does "rate" mean in a technical context?',qAr:'ما معنى "rate" في السياق الهندسي؟',o:["An amount per unit time","A total amount","A pressure value","A temperature value"],c:0,en:'"Rate" = amount per unit of time.',ar:'"Rate" = معدل.'},
+{t:"Measurements & Units",type:"meaning",q:'What does "mass flow rate" mean?',qAr:'ما معنى "mass flow rate"؟',o:["Mass of fluid per unit time","Volume of fluid per unit time","Number of moles per unit time","Pressure per unit time"],c:0,en:'"Mass flow rate" = kg/s.',ar:'"Mass flow rate" = معدل التدفق الكتلي.'},
+{t:"Measurements & Units",type:"meaning",q:'What does "volumetric flow rate" mean?',qAr:'ما معنى "volumetric flow rate"؟',o:["Volume of fluid per unit time","Mass of fluid per unit time","Moles per unit time","Pressure per unit time"],c:0,en:'"Volumetric flow rate" = m³/s.',ar:'"Volumetric flow rate" = معدل التدفق الحجمي.'},
+{t:"Measurements & Units",type:"meaning",q:'What does "unit" mean in engineering?',qAr:'ما معنى "unit" في الهندسة؟',o:["A standard of measurement","A piece of equipment","A type of fluid","A chemical reaction"],c:0,en:'"Unit" = a standard of measurement.',ar:'"Unit" = وحدة قياس.'},
+{t:"Measurements & Units",type:"translation",q:'Which English term means "توازن الكتلة"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "توازن الكتلة"؟',o:["Mass balance","Heat balance","Energy balance","Momentum balance"],c:0,en:'"Mass balance" = mass in = mass out + accumulation.',ar:'"Mass balance" = توازن الكتلة.'},
+{t:"Measurements & Units",type:"translation",q:'Which English term means "الكسور المولية"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "الكسور المولية"؟',o:["Mole fractions","Mass fractions","Volume fractions","Weight fractions"],c:0,en:'"Mole fractions" = moles ÷ total moles.',ar:'"Mole fractions" = الكسور المولية.'},
+{t:"Measurements & Units",type:"translation",q:'Which English term means "درجة الحرارة"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "درجة الحرارة"؟',o:["Temperature","Pressure","Volume","Mass"],c:0,en:'"Temperature" = درجة الحرارة.',ar:'"Temperature" = درجة الحرارة.'},
+{t:"Measurements & Units",type:"translation",q:'Which English term means "الضغط"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "الضغط"؟',o:["Pressure","Temperature","Volume","Mass"],c:0,en:'"Pressure" = الضغط.',ar:'"Pressure" = الضغط.'},
+{t:"Measurements & Units",type:"translation",q:'Which English term means "الكتلة"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "الكتلة"؟',o:["Mass","Volume","Pressure","Temperature"],c:0,en:'"Mass" = الكتلة.',ar:'"Mass" = الكتلة.'},
+{t:"Measurements & Units",type:"translation",q:'Which English term means "الحجم"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "الحجم"؟',o:["Volume","Mass","Pressure","Density"],c:0,en:'"Volume" = الحجم.',ar:'"Volume" = الحجم.'},
+{t:"Measurements & Units",type:"fill-blank",q:'The SI unit of pressure is the <span class="blank">___</span>.',qAr:'وحدة الضغط في SI هي ___.',o:["pascal","newton","joule","watt"],c:0,en:'SI unit of pressure = pascal (Pa = N/m²).',ar:'وحدة الضغط = "Pascal".'},
+{t:"Measurements & Units",type:"fill-blank",q:'The SI unit of power is the <span class="blank">___</span>.',qAr:'وحدة القدرة في SI هي ___.',o:["watt","pascal","joule","newton"],c:0,en:'SI unit of power = watt (W = J/s).',ar:'وحدة القدرة = "Watt".'},
+{t:"Measurements & Units",type:"fill-blank",q:'The SI unit of mass is the <span class="blank">___</span>.',qAr:'وحدة الكتلة في SI هي ___.',o:["kilogram","gram","pound","ton"],c:0,en:'SI unit of mass = kilogram (kg).',ar:'وحدة الكتلة = "Kilogram".'},
+{t:"Measurements & Units",type:"fill-blank",q:'The SI unit of temperature is the <span class="blank">___</span>.',qAr:'وحدة الحرارة في SI هي ___.',o:["kelvin","celsius","fahrenheit","degree"],c:0,en:'SI unit of temperature = kelvin (K).',ar:'وحدة درجة الحرارة = "Kelvin".'},
+{t:"Measurements & Units",type:"synonym",q:'Which word is closest in meaning to "quantity"?',qAr:'أي كلمة أقرب في المعنى إلى "quantity"؟',o:["Amount","Speed","Direction","Quality"],c:0,en:'"Quantity" = amount.',ar:'"Quantity" = كمية.'},
+{t:"Measurements & Units",type:"synonym",q:'Which word is closest in meaning to "mass"?',qAr:'أي كلمة أقرب في المعنى إلى "mass"؟',o:["Weight / amount of matter","Volume","Temperature","Pressure"],c:0,en:'"Mass" = amount of matter.',ar:'"Mass" = كتلة المادة.'},
+{t:"Measurements & Units",type:"synonym",q:'Which word is closest in meaning to "volume"?',qAr:'أي كلمة أقرب في المعنى إلى "volume"؟',o:["Capacity / space occupied","Weight","Temperature","Force"],c:0,en:'"Volume" = space occupied.',ar:'"Volume" = الحجم.'},
+{t:"Measurements & Units",type:"synonym",q:'Which word is closest in meaning to "rate"?',qAr:'أي كلمة أقرب في المعنى إلى "rate"؟',o:["Speed of change","Total value","Fixed amount","Constant value"],c:0,en:'"Rate" = speed of change per unit time.',ar:'"Rate" = معدل التغير.'},
+
+/* ===== Thermodynamics Terms ===== */
+{t:"Thermodynamics Terms",type:"meaning",q:'What is the meaning of "enthalpy"?',qAr:'ما معنى "enthalpy"؟',o:["Total heat content of a system","Disorder of a system","Pressure of a gas","Volume of a fluid"],c:0,en:'"Enthalpy" (H) = total heat content.',ar:'"Enthalpy" = المحتوى الحراري.'},
+{t:"Thermodynamics Terms",type:"meaning",q:'What is the meaning of "entropy"?',qAr:'ما معنى "entropy"؟',o:["A measure of disorder","The heat content","The pressure","The volume"],c:0,en:'"Entropy" (S) = measure of disorder.',ar:'"Entropy" = الإنتروبيا.'},
+{t:"Thermodynamics Terms",type:"meaning",q:'What does "adiabatic" mean?',qAr:'ما معنى "adiabatic"؟',o:["No heat exchange with surroundings","Constant temperature","Constant pressure","Constant volume"],c:0,en:'"Adiabatic" = no heat transfer (Q = 0).',ar:'"Adiabatic" = أدياباتي.'},
+{t:"Thermodynamics Terms",type:"meaning",q:'What does "isothermal" mean?',qAr:'ما معنى "isothermal"؟',o:["Constant temperature","Constant pressure","Constant volume","No heat exchange"],c:0,en:'"Isothermal" = constant temperature.',ar:'"Isothermal" = درجة حرارة ثابتة.'},
+{t:"Thermodynamics Terms",type:"meaning",q:'What does "isobaric" mean?',qAr:'ما معنى "isobaric"؟',o:["Constant pressure","Constant temperature","Constant volume","No heat exchange"],c:0,en:'"Isobaric" = constant pressure.',ar:'"Isobaric" = ضغط ثابت.'},
+{t:"Thermodynamics Terms",type:"meaning",q:'What does "thermodynamic equilibrium" mean?',qAr:'ما معنى "thermodynamic equilibrium"؟',o:["No change in macroscopic properties with time","Very fast change","Very hot state","Very cold state"],c:0,en:'"Thermodynamic equilibrium" = properties do not change with time.',ar:'"Thermodynamic equilibrium" = توازن ديناميكي حراري.'},
+{t:"Thermodynamics Terms",type:"translation",q:'Which English term means "حرارة كامنة"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "حرارة كامنة"؟',o:["Latent heat","Sensible heat","Specific heat","Reaction heat"],c:0,en:'"Latent heat" = heat absorbed during phase change.',ar:'"Latent heat" = حرارة كامنة.'},
+{t:"Thermodynamics Terms",type:"translation",q:'Which English term means "حرارة محسوسة"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "حرارة محسوسة"؟',o:["Sensible heat","Latent heat","Specific heat","Enthalpy"],c:0,en:'"Sensible heat" changes temperature.',ar:'"Sensible heat" = حرارة محسوسة.'},
+{t:"Thermodynamics Terms",type:"translation",q:'Which English term means "محتوى حراري"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "محتوى حراري"؟',o:["Enthalpy","Entropy","Pressure","Volume"],c:0,en:'"Enthalpy" = total heat content.',ar:'"Enthalpy" = المحتوى الحراري.'},
+{t:"Thermodynamics Terms",type:"translation",q:'Which English term means "إنتروبيا"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "إنتروبيا"؟',o:["Entropy","Enthalpy","Energy","Efficiency"],c:0,en:'"Entropy" = measure of disorder.',ar:'"Entropy" = إنتروبيا.'},
+{t:"Thermodynamics Terms",type:"translation",q:'Which English term means "ضغط"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "ضغط"؟',o:["Pressure","Temperature","Volume","Mass"],c:0,en:'"Pressure" = force per unit area.',ar:'"Pressure" = الضغط.'},
+{t:"Thermodynamics Terms",type:"translation",q:'Which English term means "درجة حرارة"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "درجة حرارة"؟',o:["Temperature","Pressure","Volume","Density"],c:0,en:'"Temperature" = degree of hotness.',ar:'"Temperature" = درجة الحرارة.'},
+{t:"Thermodynamics Terms",type:"fill-blank",q:'A process at constant temperature is called <span class="blank">___</span>.',qAr:'العملية عند درجة حرارة ثابتة تُسمى ___.',o:["isothermal","adiabatic","isobaric","isometric"],c:0,en:'"Isothermal" = constant T.',ar:'"Isothermal" = إيزوثرمي.'},
+{t:"Thermodynamics Terms",type:"fill-blank",q:'A process at constant pressure is called <span class="blank">___</span>.',qAr:'العملية عند ضغط ثابت تُسمى ___.',o:["isobaric","isothermal","adiabatic","isometric"],c:0,en:'"Isobaric" = constant P.',ar:'"Isobaric" = إيزوباري.'},
+{t:"Thermodynamics Terms",type:"fill-blank",q:'A process with no heat exchange is called <span class="blank">___</span>.',qAr:'العملية بدون تبادل حراري تُسمى ___.',o:["adiabatic","isothermal","isobaric","isometric"],c:0,en:'"Adiabatic" = Q = 0.',ar:'"Adiabatic" = أدياباتي.'},
+{t:"Thermodynamics Terms",type:"fill-blank",q:'The total heat content of a system is called <span class="blank">___</span>.',qAr:'المحتوى الحراري الكلي للنظام يُسمى ___.',o:["enthalpy","entropy","energy","power"],c:0,en:'"Enthalpy" = total heat content.',ar:'"Enthalpy" = المحتوى الحراري.'},
+{t:"Thermodynamics Terms",type:"synonym",q:'Which word is closest in meaning to "heat"?',qAr:'أي كلمة أقرب في المعنى إلى "heat"؟',o:["Thermal energy","Pressure","Volume","Mass"],c:0,en:'"Heat" = thermal energy in transit.',ar:'"Heat" = طاقة حرارية.'},
+{t:"Thermodynamics Terms",type:"synonym",q:'Which word is closest in meaning to "disorder"?',qAr:'أي كلمة أقرب في المعنى إلى "disorder"؟',o:["Entropy","Enthalpy","Energy","Pressure"],c:0,en:'"Disorder" = entropy.',ar:'"Disorder" قريبة من "Entropy".'},
+{t:"Thermodynamics Terms",type:"synonym",q:'Which word is closest in meaning to "heat content"?',qAr:'أي كلمة أقرب في المعنى إلى "heat content"؟',o:["Enthalpy","Entropy","Energy","Pressure"],c:0,en:'"Heat content" = enthalpy.',ar:'"Heat content" = المحتوى الحراري.'},
+{t:"Thermodynamics Terms",type:"synonym",q:'Which word is closest in meaning to "steady"?',qAr:'أي كلمة أقرب في المعنى إلى "steady"؟',o:["Not changing with time","Very fast","Very hot","Very cold"],c:0,en:'"Steady" = not changing with time.',ar:'"Steady" = مستقر / ثابت.'},
+
+/* ===== Fluids Vocabulary ===== */
+{t:"Fluids Vocabulary",type:"meaning",q:'What does "laminar flow" mean?',qAr:'ما معنى "laminar flow"؟',o:["Smooth flow in parallel layers","Chaotic irregular flow","Very fast flow","Flow with bubbles"],c:0,en:'"Laminar" = smooth parallel layers.',ar:'"Laminar flow" = الجريان الصفحي.'},
+{t:"Fluids Vocabulary",type:"meaning",q:'What does "turbulent flow" mean?',qAr:'ما معنى "turbulent flow"؟',o:["Chaotic irregular flow","Smooth layered flow","Very slow flow","Flow without pressure"],c:0,en:'"Turbulent" = chaotic irregular flow.',ar:'"Turbulent flow" = الجريان المضطرب.'},
+{t:"Fluids Vocabulary",type:"meaning",q:'What does "Reynolds number" indicate?',qAr:'إلى ماذا يشير "Reynolds number"؟',o:["Ratio of inertial to viscous forces","Ratio of heat to mass","Ratio of pressure to volume","Ratio of energy to time"],c:0,en:'Re = ratio of inertia to viscosity.',ar:'"Reynolds number" = نسبة قوى القصور إلى اللزوجة.'},
+{t:"Fluids Vocabulary",type:"meaning",q:'What does "velocity" mean?',qAr:'ما معنى "velocity"؟',o:["Speed of fluid in a given direction","Pressure of the fluid","Temperature of the fluid","Mass of the fluid"],c:0,en:'"Velocity" = speed with direction.',ar:'"Velocity" = السرعة.'},
+{t:"Fluids Vocabulary",type:"meaning",q:'What does "flow regime" mean?',qAr:'ما معنى "flow regime"؟',o:["The type of flow (laminar or turbulent)","The temperature of the fluid","The color of the pipe","The pressure of the fluid"],c:0,en:'"Flow regime" = laminar or turbulent.',ar:'"Flow regime" = نمط الجريان.'},
+{t:"Fluids Vocabulary",type:"meaning",q:'What does "head loss" mean?',qAr:'ما معنى "head loss"؟',o:["Loss of pressure due to friction","Gain of pressure","Increase in temperature","Increase in flow rate"],c:0,en:'"Head loss" = pressure loss due to friction.',ar:'"Head loss" = فقدان الضغط بالاحتكاك.'},
+{t:"Fluids Vocabulary",type:"translation",q:'Which English term means "فرق الضغط"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "فرق الضغط"؟',o:["Pressure difference (ΔP)","Pressure ratio","Pressure gauge","Pressure head"],c:0,en:'"Pressure difference" = ΔP between two points.',ar:'"Pressure difference" = فرق الضغط.'},
+{t:"Fluids Vocabulary",type:"translation",q:'Which English term means "معدل التدفق الحجمي"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "معدل التدفق الحجمي"؟',o:["Volumetric flow rate","Mass flow rate","Molar flow rate","Linear velocity"],c:0,en:'"Volumetric flow rate" = m³/s.',ar:'"Volumetric flow rate" = معدل التدفق الحجمي.'},
+{t:"Fluids Vocabulary",type:"translation",q:'Which English term means "مائع"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "مائع"؟',o:["Fluid","Solid","Gas only","Plasma"],c:0,en:'"Fluid" = liquid or gas.',ar:'"Fluid" = مائع.'},
+{t:"Fluids Vocabulary",type:"translation",q:'Which English term means "جريان"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "جريان"؟',o:["Flow","Stagnation","Storage","Heating"],c:0,en:'"Flow" = motion of a fluid.',ar:'"Flow" = جريان.'},
+{t:"Fluids Vocabulary",type:"translation",q:'Which English term means "لزوجة"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "لزوجة"؟',o:["Viscosity","Density","Velocity","Volume"],c:0,en:'"Viscosity" = resistance to flow.',ar:'"Viscosity" = لزوجة.'},
+{t:"Fluids Vocabulary",type:"translation",q:'Which English term means "سرعة"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "سرعة"؟',o:["Velocity","Volume","Pressure","Density"],c:0,en:'"Velocity" = speed in a direction.',ar:'"Velocity" = سرعة.'},
+{t:"Fluids Vocabulary",type:"fill-blank",q:'A fluid with constant viscosity at any shear rate is called <span class="blank">___</span>.',qAr:'المائع ذو اللزوجة الثابتة يُسمى ___.',o:["Newtonian","non-Newtonian","ideal","compressible"],c:0,en:'"Newtonian" = constant viscosity.',ar:'"Newtonian" = نيوتوني.'},
+{t:"Fluids Vocabulary",type:"fill-blank",q:'A fluid whose viscosity decreases with shear rate is called <span class="blank">___</span>.',qAr:'المائع الذي تقل لزوجته مع القص يُسمى ___.',o:["shear-thinning","shear-thickening","Newtonian","ideal"],c:0,en:'"Shear-thinning" (thixotropic) = viscosity decreases with shear.',ar:'"Shear-thinning" = ينقص بالقص.'},
+{t:"Fluids Vocabulary",type:"fill-blank",q:'Smooth flow in parallel layers is called <span class="blank">___</span>.',qAr:'الجريان المنتظم في طبقات متوازية يُسمى ___.',o:["laminar","turbulent","chaotic","random"],c:0,en:'"Laminar" = smooth parallel layers.',ar:'"Laminar" = صفحي.'},
+{t:"Fluids Vocabulary",type:"fill-blank",q:'Chaotic irregular flow is called <span class="blank">___</span>.',qAr:'الجريان العشوائي غير المنتظم يُسمى ___.',o:["turbulent","laminar","steady","ideal"],c:0,en:'"Turbulent" = chaotic flow.',ar:'"Turbulent" = مضطرب.'},
+{t:"Fluids Vocabulary",type:"synonym",q:'Which word is closest in meaning to "stream"?',qAr:'أي كلمة أقرب في المعنى إلى "stream"؟',o:["Flow","Valve","Tank","Pump"],c:0,en:'"Stream" = a flowing fluid.',ar:'"Stream" = تيار / جريان.'},
+{t:"Fluids Vocabulary",type:"synonym",q:'Which word is closest in meaning to "fluid"?',qAr:'أي كلمة أقرب في المعنى إلى "fluid"؟',o:["Liquid or gas","Solid only","Metal","Powder"],c:0,en:'"Fluid" = liquid or gas.',ar:'"Fluid" = مائع.'},
+{t:"Fluids Vocabulary",type:"synonym",q:'Which word is closest in meaning to "velocity"?',qAr:'أي كلمة أقرب في المعنى إلى "velocity"؟',o:["Speed","Volume","Mass","Force"],c:0,en:'"Velocity" = speed.',ar:'"Velocity" = سرعة.'},
+{t:"Fluids Vocabulary",type:"synonym",q:'Which word is closest in meaning to "duct"?',qAr:'أي كلمة أقرب في المعنى إلى "duct"؟',o:["Pipe / channel","Tank","Valve","Pump"],c:0,en:'"Duct" = pipe or channel.',ar:'"Duct" = مجرى / قناة.'},
+
+/* ===== Heat & Mass Transfer ===== */
+{t:"Heat & Mass Transfer",type:"meaning",q:'What does "conduction" mean?',qAr:'ما معنى "conduction"؟',o:["Heat transfer by direct contact in a material","Heat transfer by moving fluid","Heat transfer by waves","Mass transfer by diffusion"],c:0,en:'"Conduction" = heat transfer through a material.',ar:'"Conduction" = التوصيل الحراري.'},
+{t:"Heat & Mass Transfer",type:"meaning",q:'What does "convection" mean?',qAr:'ما معنى "convection"؟',o:["Heat transfer by moving fluid","Heat transfer through solid","Heat transfer by waves","Mass transfer through a membrane"],c:0,en:'"Convection" = heat transfer by a moving fluid.',ar:'"Convection" = الحمل الحراري.'},
+{t:"Heat & Mass Transfer",type:"meaning",q:'What does "radiation" mean?',qAr:'ما معنى "radiation"؟',o:["Heat transfer by electromagnetic waves","Heat transfer by contact","Heat transfer by fluid movement","Heat transfer by pressure"],c:0,en:'"Radiation" = heat transfer by waves.',ar:'"Radiation" = الإشعاع.'},
+{t:"Heat & Mass Transfer",type:"meaning",q:'What does "evaporation" mean?',qAr:'ما معنى "evaporation"؟',o:["Change from liquid to vapor","Change from vapor to liquid","Change from solid to liquid","Change from liquid to solid"],c:0,en:'"Evaporation" = liquid → vapor.',ar:'"Evaporation" = تبخّر.'},
+{t:"Heat & Mass Transfer",type:"meaning",q:'What does "condensation" mean?',qAr:'ما معنى "condensation"؟',o:["Change from vapor to liquid","Change from liquid to vapor","Change from solid to gas","Change from liquid to solid"],c:0,en:'"Condensation" = vapor → liquid.',ar:'"Condensation" = تكثيف.'},
+{t:"Heat & Mass Transfer",type:"meaning",q:'What does "absorption" mean?',qAr:'ما معنى "absorption"؟',o:["Gas transfers into a liquid","Liquid transfers into a solid","Solid melts into liquid","Gas expands in vacuum"],c:0,en:'"Absorption" = gas → liquid.',ar:'"Absorption" = امتصاص.'},
+{t:"Heat & Mass Transfer",type:"translation",q:'Which English term means "التقطير"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "التقطير"؟',o:["Distillation","Absorption","Extraction","Filtration"],c:0,en:'"Distillation" = separation by boiling point.',ar:'"Distillation" = تقطير.'},
+{t:"Heat & Mass Transfer",type:"translation",q:'Which English term means "امتصاص (غاز إلى سائل)"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "امتصاص (غاز إلى سائل)"؟',o:["Absorption","Adsorption","Stripping","Extraction"],c:0,en:'"Absorption" = gas into a liquid.',ar:'"Absorption" = امتصاص.'},
+{t:"Heat & Mass Transfer",type:"translation",q:'Which English term means "امتزاز (على سطح صلب)"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "امتزاز (على سطح صلب)"؟',o:["Adsorption","Absorption","Stripping","Extraction"],c:0,en:'"Adsorption" = onto a solid surface.',ar:'"Adsorption" = امتزاز على سطح صلب.'},
+{t:"Heat & Mass Transfer",type:"translation",q:'Which English term means "استخلاص"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "استخلاص"؟',o:["Extraction","Distillation","Absorption","Filtration"],c:0,en:'"Extraction" = separation by solvent.',ar:'"Extraction" = استخلاص.'},
+{t:"Heat & Mass Transfer",type:"translation",q:'Which English term means "تبخير"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "تبخير"؟',o:["Evaporation","Condensation","Sublimation","Freezing"],c:0,en:'"Evaporation" = liquid → vapor.',ar:'"Evaporation" = تبخير.'},
+{t:"Heat & Mass Transfer",type:"translation",q:'Which English term means "تكثيف"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "تكثيف"؟',o:["Condensation","Evaporation","Melting","Sublimation"],c:0,en:'"Condensation" = vapor → liquid.',ar:'"Condensation" = تكثيف.'},
+{t:"Heat & Mass Transfer",type:"fill-blank",q:'In distillation, the liquid returned to the top of the column is called <span class="blank">___</span>.',qAr:'في التقطير، السائل المُرجَع إلى الأعلى يُسمى ___.',o:["reflux","distillate","bottoms","feed"],c:0,en:'"Reflux" = returned liquid.',ar:'"Reflux" = السائل المرتجع.'},
+{t:"Heat & Mass Transfer",type:"fill-blank",q:'The top product of a distillation column is called the <span class="blank">___</span>.',qAr:'الناتج العلوي لبرج التقطير يُسمى ___.',o:["distillate","reflux","bottoms","residue"],c:0,en:'"Distillate" = top product.',ar:'"Distillate" = الناتج العلوي.'},
+{t:"Heat & Mass Transfer",type:"fill-blank",q:'Heat transfer through a solid material by contact is called <span class="blank">___</span>.',qAr:'انتقال الحرارة عبر مادة صلبة بالتلامس يُسمى ___.',o:["conduction","convection","radiation","evaporation"],c:0,en:'"Conduction" = heat through a material.',ar:'"Conduction" = التوصيل.'},
+{t:"Heat & Mass Transfer",type:"fill-blank",q:'Heat transfer by a moving fluid is called <span class="blank">___</span>.',qAr:'انتقال الحرارة بمائع متحرك يُسمى ___.',o:["convection","conduction","radiation","evaporation"],c:0,en:'"Convection" = heat by moving fluid.',ar:'"Convection" = الحمل.'},
+{t:"Heat & Mass Transfer",type:"synonym",q:'Which word is closest in meaning to "vapor"?',qAr:'أي كلمة أقرب في المعنى إلى "vapor"؟',o:["Gas","Liquid","Solid","Slurry"],c:0,en:'"Vapor" = gas formed from liquid or solid.',ar:'"Vapor" = بخار.'},
+{t:"Heat & Mass Transfer",type:"synonym",q:'Which word is closest in meaning to "distillation"?',qAr:'أي كلمة أقرب في المعنى إلى "distillation"؟',o:["Separation by boiling point","Mixing two liquids","Heating a solid","Cooling a gas"],c:0,en:'"Distillation" = separation by boiling point.',ar:'"Distillation" = فصل بالتقطير.'},
+{t:"Heat & Mass Transfer",type:"synonym",q:'Which word is closest in meaning to "heat transfer"?',qAr:'أي كلمة أقرب في المعنى إلى "heat transfer"؟',o:["Thermal transfer","Pressure drop","Flow rate","Mass balance"],c:0,en:'"Heat transfer" = thermal transfer.',ar:'"Heat transfer" = انتقال الحرارة.'},
+{t:"Heat & Mass Transfer",type:"synonym",q:'Which word is closest in meaning to "evaporation"?',qAr:'أي كلمة أقرب في المعنى إلى "evaporation"؟',o:["Vaporization","Condensation","Freezing","Melting"],c:0,en:'"Evaporation" = vaporization.',ar:'"Evaporation" = تبخير.'},
+
+/* ===== Reaction & Catalyst ===== */
+{t:"Reaction & Catalyst",type:"meaning",q:'What does "catalyst" mean?',qAr:'ما معنى "catalyst"؟',o:["A substance that speeds up a reaction without being consumed","A substance that slows a reaction","The main reactant","The final product"],c:0,en:'A "catalyst" speeds up and is not consumed.',ar:'"Catalyst" = حفاز.'},
+{t:"Reaction & Catalyst",type:"meaning",q:'What does "reactant" mean?',qAr:'ما معنى "reactant"؟',o:["A substance that enters a reaction","A substance that exits a reaction","A substance that speeds up a reaction","A substance that stops a reaction"],c:0,en:'A "reactant" enters the reaction.',ar:'"Reactant" = مادة متفاعلة.'},
+{t:"Reaction & Catalyst",type:"meaning",q:'What does "product" mean in chemistry?',qAr:'ما معنى "product" في الكيمياء؟',o:["A substance formed by the reaction","A substance that enters the reaction","A catalyst","An inhibitor"],c:0,en:'A "product" is formed by the reaction.',ar:'"Product" = ناتج التفاعل.'},
+{t:"Reaction & Catalyst",type:"meaning",q:'What does "activation energy" mean?',qAr:'ما معنى "activation energy"؟',o:["Minimum energy needed for a reaction","Energy released by reaction","Energy of the products","Energy of the catalyst"],c:0,en:'"Activation energy" = energy barrier.',ar:'"Activation energy" = طاقة التنشيط.'},
+{t:"Reaction & Catalyst",type:"meaning",q:'What does "homogeneous catalyst" mean?',qAr:'ما معنى "homogeneous catalyst"؟',o:["A catalyst in the same phase as reactants","A catalyst in a different phase","A solid catalyst","An inert material"],c:0,en:'"Homogeneous" = same phase as reactants.',ar:'"Homogeneous" = في نفس الطور.'},
+{t:"Reaction & Catalyst",type:"meaning",q:'What does "heterogeneous catalyst" mean?',qAr:'ما معنى "heterogeneous catalyst"؟',o:["A catalyst in a different phase","A catalyst in the same phase","A gas catalyst","A liquid catalyst"],c:0,en:'"Heterogeneous" = different phase.',ar:'"Heterogeneous" = في طور مختلف.'},
+{t:"Reaction & Catalyst",type:"translation",q:'Which English term means "طاقة التنشيط"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "طاقة التنشيط"؟',o:["Activation energy","Bond energy","Internal energy","Gibbs energy"],c:0,en:'"Activation energy" = Ea.',ar:'"Activation energy" = طاقة التنشيط.'},
+{t:"Reaction & Catalyst",type:"translation",q:'Which English term means "ناتج التفاعل"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "ناتج التفاعل"؟',o:["Product","Reactant","Catalyst","Intermediate"],c:0,en:'"Product" = ناتج.',ar:'"Product" = ناتج التفاعل.'},
+{t:"Reaction & Catalyst",type:"translation",q:'Which English term means "حفاز"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "حفاز"؟',o:["Catalyst","Reactant","Product","Solvent"],c:0,en:'"Catalyst" = حفاز.',ar:'"Catalyst" = حفاز.'},
+{t:"Reaction & Catalyst",type:"translation",q:'Which English term means "متفاعل"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "متفاعل"؟',o:["Reactant","Product","Catalyst","Solvent"],c:0,en:'"Reactant" = مادة متفاعلة.',ar:'"Reactant" = متفاعل.'},
+{t:"Reaction & Catalyst",type:"translation",q:'Which English term means "مفاعل"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "مفاعل"؟',o:["Reactor","Tank","Valve","Pipe"],c:0,en:'"Reactor" = vessel for reactions.',ar:'"Reactor" = مفاعل.'},
+{t:"Reaction & Catalyst",type:"translation",q:'Which English term means "تفاعل"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "تفاعل"؟',o:["Reaction","Separation","Mixing","Flow"],c:0,en:'"Reaction" = chemical change.',ar:'"Reaction" = تفاعل.'},
+{t:"Reaction & Catalyst",type:"fill-blank",q:'A reactor with continuous flow and perfect mixing is called a <span class="blank">___</span>.',qAr:'المفاعل ذو الجريان المستمر والخلط التام يُسمى ___.',o:["CSTR","PFR","batch reactor","fixed bed"],c:0,en:'"CSTR" = Continuous Stirred Tank Reactor.',ar:'"CSTR" = مفاعل الخزان المستمر المقلّب.'},
+{t:"Reaction & Catalyst",type:"fill-blank",q:'A reactor where fluid flows as plugs with no back-mixing is called a <span class="blank">___</span>.',qAr:'المفاعل ذو الجريان السدّي بلا خلط عكسي يُسمى ___.',o:["PFR","CSTR","batch reactor","fluidized bed"],c:0,en:'"PFR" = Plug Flow Reactor.',ar:'"PFR" = المفاعل الأنبوبي.'},
+{t:"Reaction & Catalyst",type:"fill-blank",q:'A substance that speeds up a reaction is called a <span class="blank">___</span>.',qAr:'المادة التي تسرّع التفاعل تُسمى ___.',o:["catalyst","reactant","product","solvent"],c:0,en:'"Catalyst" = speeds up the reaction.',ar:'"Catalyst" = حفاز.'},
+{t:"Reaction & Catalyst",type:"fill-blank",q:'A substance that enters a chemical reaction is called a <span class="blank">___</span>.',qAr:'المادة التي تدخل التفاعل تُسمى ___.',o:["reactant","product","catalyst","inhibitor"],c:0,en:'"Reactant" enters the reaction.',ar:'"Reactant" = متفاعل.'},
+{t:"Reaction & Catalyst",type:"synonym",q:'Which word is closest in meaning to "reaction"?',qAr:'أي كلمة أقرب في المعنى إلى "reaction"؟',o:["Chemical change","Physical change","Separation step","Flow step"],c:0,en:'"Reaction" = chemical change.',ar:'"Reaction" = تغيّر كيميائي.'},
+{t:"Reaction & Catalyst",type:"synonym",q:'Which word is closest in meaning to "catalyst"?',qAr:'أي كلمة أقرب في المعنى إلى "catalyst"؟',o:["Promoter / accelerator","Inhibitor","Reactant","Product"],c:0,en:'"Catalyst" = accelerator, speeds up reaction.',ar:'"Catalyst" = مسرّع / محفّز.'},
+{t:"Reaction & Catalyst",type:"synonym",q:'Which word is closest in meaning to "product"?',qAr:'أي كلمة أقرب في المعنى إلى "product"؟',o:["Output of reaction","Input of reaction","Catalyst","Solvent"],c:0,en:'"Product" = output of reaction.',ar:'"Product" = ناتج.'},
+{t:"Reaction & Catalyst",type:"synonym",q:'Which word is closest in meaning to "conversion"?',qAr:'أي كلمة أقرب في المعنى إلى "conversion"؟',o:["Fraction of reactant converted","Amount of product formed","Rate of flow","Heat transferred"],c:0,en:'"Conversion" = fraction of reactant converted.',ar:'"Conversion" = نسبة التحويل.'},
+
+/* ===== Safety & Hazards ===== */
+{t:"Safety & Hazards",type:"meaning",q:'What does "flash point" mean?',qAr:'ما معنى "flash point"؟',o:["The lowest temperature for an ignitable vapor","The boiling point of a liquid","The freezing point of a liquid","The maximum operating temperature"],c:0,en:'"Flash point" = lowest T for ignitable vapor-air mixture.',ar:'"Flash point" = نقطة الوميض.'},
+{t:"Safety & Hazards",type:"meaning",q:'What does "hazard" mean?',qAr:'ما معنى "hazard"؟',o:["A source of danger or harm","A safety measure","A type of valve","A unit of pressure"],c:0,en:'"Hazard" = source of potential harm.',ar:'"Hazard" = خطر.'},
+{t:"Safety & Hazards",type:"meaning",q:'What does "leak" mean?',qAr:'ما معنى "leak"؟',o:["Escape of fluid from a container","Spilling of liquid","Fire in the plant","Increase in pressure"],c:0,en:'"Leak" = escape of fluid from a container.',ar:'"Leak" = تسرب.'},
+{t:"Safety & Hazards",type:"meaning",q:'What does "PPE" mean?',qAr:'ما معنى "PPE"؟',o:["Personal Protective Equipment","Pressure Protective Element","Personal Process Equipment","Plant Protective Enclosure"],c:0,en:'"PPE" = helmet, gloves, goggles.',ar:'"PPE" = معدات الحماية الشخصية.'},
+{t:"Safety & Hazards",type:"meaning",q:'What does "SDS" mean?',qAr:'ما معنى "SDS"؟',o:["Safety Data Sheet","Standard Design System","System Data Set","Safe Drain System"],c:0,en:'"SDS" = Safety Data Sheet.',ar:'"SDS" = صفحة بيانات السلامة.'},
+{t:"Safety & Hazards",type:"meaning",q:'What does "explosion" mean?',qAr:'ما معنى "explosion"؟',o:["Sudden release of energy causing pressure wave","Slow increase in temperature","Sudden decrease in flow","Slow leak"],c:0,en:'"Explosion" = sudden energy release.',ar:'"Explosion" = انفجار.'},
+{t:"Safety & Hazards",type:"translation",q:'Which English term means "تسرب"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "تسرب"؟',o:["Leak","Spill","Fire","Explosion"],c:0,en:'"Leak" = تسرب.',ar:'"Leak" = تسرب.'},
+{t:"Safety & Hazards",type:"translation",q:'Which English term means "معدات الحماية الشخصية"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "معدات الحماية الشخصية"؟',o:["PPE","SDS","PSV","PFD"],c:0,en:'"PPE" = Personal Protective Equipment.',ar:'"PPE" = معدات الحماية الشخصية.'},
+{t:"Safety & Hazards",type:"translation",q:'Which English term means "خطر"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "خطر"؟',o:["Hazard","Safety","Protection","Control"],c:0,en:'"Hazard" = danger.',ar:'"Hazard" = خطر.'},
+{t:"Safety & Hazards",type:"translation",q:'Which English term means "حريق"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "حريق"؟',o:["Fire","Flame","Smoke","Heat"],c:0,en:'"Fire" = combustion.',ar:'"Fire" = حريق.'},
+{t:"Safety & Hazards",type:"translation",q:'Which English term means "إسعافات أولية"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "إسعافات أولية"؟',o:["First aid","Fire aid","Safety line","Emergency plan"],c:0,en:'"First aid" = immediate help.',ar:'"First aid" = إسعافات أولية.'},
+{t:"Safety & Hazards",type:"translation",q:'Which English term means "صمام أمان"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "صمام أمان"؟',o:["Relief valve","Control valve","Gate valve","Check valve"],c:0,en:'"Relief valve" = PSV.',ar:'"Relief valve" = صمام أمان.'},
+{t:"Safety & Hazards",type:"fill-blank",q:'The document that describes chemical hazards is called <span class="blank">___</span>.',qAr:'الوثيقة التي تصف مخاطر المواد الكيميائية تُسمى ___.',o:["SDS","PFD","P&ID","LOI"],c:0,en:'"SDS" (Safety Data Sheet).',ar:'"SDS" = صفحة بيانات السلامة.'},
+{t:"Safety & Hazards",type:"fill-blank",q:'A <span class="blank">___</span> valve opens automatically to prevent overpressure.',qAr:'صمام الـ ___ يفتح تلقائيًا لمنع زيادة الضغط.',o:["relief","control","gate","check"],c:0,en:'"Relief valve" releases excess pressure.',ar:'"Relief valve" = صمام تنفيس.'},
+{t:"Safety & Hazards",type:"fill-blank",q:'The escape of fluid from a container is called a <span class="blank">___</span>.',qAr:'خروج المائع من وعائه يُسمى ___.',o:["leak","spill","fire","blast"],c:0,en:'"Leak" = escape of fluid.',ar:'"Leak" = تسرب.'},
+{t:"Safety & Hazards",type:"fill-blank",q:'A sudden release of energy causing a pressure wave is called an <span class="blank">___</span>.',qAr:'الانبعاث المفاجئ للطاقة مُحدثًا موجة ضغط يُسمى ___.',o:["explosion","implosion","leak","spill"],c:0,en:'"Explosion" = sudden energy release.',ar:'"Explosion" = انفجار.'},
+{t:"Safety & Hazards",type:"synonym",q:'Which word is closest in meaning to "safe"?',qAr:'أي كلمة أقرب في المعنى إلى "safe"؟',o:["Not dangerous","Very hot","Very fast","Very cold"],c:0,en:'"Safe" = not causing harm.',ar:'"Safe" = آمن.'},
+{t:"Safety & Hazards",type:"synonym",q:'Which word is closest in meaning to "danger"?',qAr:'أي كلمة أقرب في المعنى إلى "danger"؟',o:["Hazard","Safety","Protection","Control"],c:0,en:'"Danger" = hazard.',ar:'"Danger" = خطر.'},
+{t:"Safety & Hazards",type:"synonym",q:'Which word is closest in meaning to "incident"?',qAr:'أي كلمة أقرب في المعنى إلى "incident"؟',o:["Accident / event","Routine operation","Design step","Flow rate"],c:0,en:'"Incident" = accident or unwanted event.',ar:'"Incident" = حادث.'},
+{t:"Safety & Hazards",type:"synonym",q:'Which word is closest in meaning to "emergency"?',qAr:'أي كلمة أقرب في المعنى إلى "emergency"؟',o:["Urgent dangerous situation","Normal operation","Routine check","Planned stop"],c:0,en:'"Emergency" = urgent dangerous situation.',ar:'"Emergency" = حالة طارئة.'},
+
+/* ===== Common Phrases ===== */
+{t:"Common Phrases",type:"meaning",q:'What does "steady state" mean?',qAr:'ما معنى "steady state"؟',o:["Conditions do not change with time","Conditions change rapidly","The plant is shut down","The flow has stopped"],c:0,en:'"Steady state" = variables do not change with time.',ar:'"Steady state" = الحالة المستقرة.'},
+{t:"Common Phrases",type:"meaning",q:'What does "startup" mean in a plant?',qAr:'ما معنى "startup" في المعمل؟',o:["Beginning operation of the plant","Shutting down the plant","Repairing equipment","Emergency stop"],c:0,en:'"Startup" = beginning operation.',ar:'"Startup" = بدء التشغيل.'},
+{t:"Common Phrases",type:"meaning",q:'What does "shutdown" mean?',qAr:'ما معنى "shutdown"؟',o:["Stopping operation of the plant","Beginning operation","Increasing flow","Heating the plant"],c:0,en:'"Shutdown" = stop operation.',ar:'"Shutdown" = إيقاف التشغيل.'},
+{t:"Common Phrases",type:"meaning",q:'What does "operating conditions" mean?',qAr:'ما معنى "operating conditions"؟',o:["Temperature, pressure and flow during normal operation","The cost of the plant","The type of equipment","The color of the pipes"],c:0,en:'"Operating conditions" = T, P, flow.',ar:'"Operating conditions" = ظروف التشغيل.'},
+{t:"Common Phrases",type:"meaning",q:'What does "unit operation" mean?',qAr:'ما معنى "unit operation"؟',o:["A physical separation step","A chemical reaction","A control loop","A type of pipe"],c:0,en:'"Unit operation" = physical step.',ar:'"Unit operation" = عملية وحدة.'},
+{t:"Common Phrases",type:"meaning",q:'What does "unit process" mean?',qAr:'ما معنى "unit process"؟',o:["A chemical reaction step","A physical separation","A storage step","A flow step"],c:0,en:'"Unit process" = chemical reaction step.',ar:'"Unit process" = عملية كيميائية.'},
+{t:"Common Phrases",type:"translation",q:'Which English term means "ظروف التشغيل"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "ظروف التشغيل"؟',o:["Operating conditions","Design specifications","Safety margins","Process steps"],c:0,en:'"Operating conditions" = T, P, flow.',ar:'"Operating conditions" = ظروف التشغيل.'},
+{t:"Common Phrases",type:"translation",q:'Which English term means "مخطط سير العملية"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "مخطط سير العملية"؟',o:["Process Flow Diagram (PFD)","Piping and Instrumentation Diagram","Block diagram","Layout drawing"],c:0,en:'"PFD" = Process Flow Diagram.',ar:'"PFD" = مخطط سير العملية.'},
+{t:"Common Phrases",type:"translation",q:'Which English term means "عملية وحدة"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "عملية وحدة"؟',o:["Unit operation","Unit process","Unit test","Unit flow"],c:0,en:'"Unit operation" = physical separation.',ar:'"Unit operation" = عملية وحدة.'},
+{t:"Common Phrases",type:"translation",q:'Which English term means "دفعة"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "دفعة"؟',o:["Batch","Continuous","Steady","Cycle"],c:0,en:'"Batch" = fixed amount.',ar:'"Batch" = دفعة.'},
+{t:"Common Phrases",type:"translation",q:'Which English term means "مستمر"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "مستمر"؟',o:["Continuous","Batch","Steady","Cycle"],c:0,en:'"Continuous" = running all the time.',ar:'"Continuous" = مستمر.'},
+{t:"Common Phrases",type:"translation",q:'Which English term means "إعادة تدوير"؟',qAr:'ما المصطلح الإنجليزي الذي يعني "إعادة تدوير"؟',o:["Recycle","Vent","Purge","Drain"],c:0,en:'"Recycle" = send stream back.',ar:'"Recycle" = إعادة تدوير.'},
+{t:"Common Phrases",type:"fill-blank",q:'A <span class="blank">___</span> operation is a physical separation step.',qAr:'عملية الـ ___ هي خطوة فصل فيزيائية.',o:["unit","batch","continuous","thermal"],c:0,en:'"Unit operation" = physical separation.',ar:'"Unit operation" = عملية وحدة.'},
+{t:"Common Phrases",type:"fill-blank",q:'A <span class="blank">___</span> process produces a fixed amount of product, then stops.',qAr:'العملية الـ ___ تنتج كمية محددة ثم تتوقف.',o:["batch","continuous","steady","recycle"],c:0,en:'"Batch" = fixed amount, then stops.',ar:'"Batch" = دفعة.'},
+{t:"Common Phrases",type:"fill-blank",q:'A <span class="blank">___</span> process runs all the time without stopping.',qAr:'العملية الـ ___ تعمل طوال الوقت دون توقف.',o:["continuous","batch","steady","cycle"],c:0,en:'"Continuous" = running all the time.',ar:'"Continuous" = مستمر.'},
+{t:"Common Phrases",type:"fill-blank",q:'Sending a stream back to an earlier stage is called <span class="blank">___</span>.',qAr:'إرجاع تيار إلى مرحلة سابقة يُسمى ___.',o:["recycle","vent","purge","drain"],c:0,en:'"Recycle" = send back.',ar:'"Recycle" = إعادة تدوير.'},
+{t:"Common Phrases",type:"synonym",q:'Which phrase is closest in meaning to "at steady state"?',qAr:'أي عبارة أقرب في المعنى إلى "at steady state"؟',o:["Not changing with time","Very fast","Very hot","Just starting"],c:0,en:'"At steady state" = not changing with time.',ar:'"At steady state" = لا يتغير مع الزمن.'},
+{t:"Common Phrases",type:"synonym",q:'Which word is closest in meaning to "continuous"?',qAr:'أي كلمة أقرب في المعنى إلى "continuous"؟',o:["Non-stop","Batch","Discrete","Periodic"],c:0,en:'"Continuous" = non-stop.',ar:'"Continuous" = متواصل.'},
+{t:"Common Phrases",type:"synonym",q:'Which word is closest in meaning to "batch"?',qAr:'أي كلمة أقرب في المعنى إلى "batch"؟',o:["Discrete amount","Continuous flow","Steady state","Recycle"],c:0,en:'"Batch" = discrete amount.',ar:'"Batch" = دفعة محددة.'},
+{t:"Common Phrases",type:"synonym",q:'Which word is closest in meaning to "operation"?',qAr:'أي كلمة أقرب في المعنى إلى "operation"؟',o:["Process / running of equipment","Storage only","Design only","Construction only"],c:0,en:'"Operation" = process or running of equipment.',ar:'"Operation" = تشغيل / عملية.'},
+];
+
+/* ===========================================================
+   الحالة
+   =========================================================== */
+const state = {
+  queue: [], idx: 0, score: 0, answered: false,
+  stats: { total: 0, ok: 0 }, wrong: []
+};
+
+const ICONS = {
+  "Basic Equipment":"🔧","Process Actions":"⚙️","Properties & States":"🧪",
+  "Measurements & Units":"📐","Thermodynamics Terms":"🔥","Fluids Vocabulary":"💧",
+  "Heat & Mass Transfer":"♨️","Reaction & Catalyst":"🧬",
+  "Safety & Hazards":"🚨","Common Phrases":"💬"
+};
+const TOPIC_AR = {
+  "Basic Equipment":"المعدات الأساسية","Process Actions":"أفعال العمليات",
+  "Properties & States":"الخصائص والحالات","Measurements & Units":"القياسات والوحدات",
+  "Thermodynamics Terms":"مصطلحات الديناميكا الحرارية","Fluids Vocabulary":"مفردات الموائع",
+  "Heat & Mass Transfer":"الحرارة والكتلة","Reaction & Catalyst":"التفاعل والحفازة",
+  "Safety & Hazards":"السلامة والمخاطر","Common Phrases":"عبارات شائعة"
+};
+const TYPE_AR = {"meaning":"معنى الكلمة","translation":"ترجمة","fill-blank":"أكمل الفراغ","synonym":"مرادف"};
+
+/* ===========================================================
+   الثيمات
+   =========================================================== */
+const THEMES = ["dark","light","sky"];
+function applyTheme(t){
+  if(!THEMES.includes(t)) t = "dark";
+  document.body.setAttribute("data-theme", t);
+  document.querySelectorAll(".themeSwitch button").forEach(b=>{
+    b.classList.toggle("on", b.dataset.theme === t);
+  });
+  try{ localStorage.setItem("cheme_theme", t); }catch(e){}
+}
+function loadTheme(){
+  let t = "dark";
+  try{ t = localStorage.getItem("cheme_theme") || "dark"; }catch(e){}
+  applyTheme(t);
+}
+document.querySelectorAll(".themeSwitch button").forEach(b=>{
+  b.onclick = () => applyTheme(b.dataset.theme);
+});
+
+/* ===========================================================
+   الإحصائيات
+   =========================================================== */
+function loadStats(){
+  try{
+    const s = JSON.parse(localStorage.getItem("cheme_vocab_stats") || "null");
+    if(s) state.stats = s;
+  }catch(e){}
+}
+function saveStats(){
+  try{ localStorage.setItem("cheme_vocab_stats", JSON.stringify(state.stats)); }catch(e){}
+}
+function renderStats(){
+  document.getElementById("stTotal").textContent = state.stats.total;
+  document.getElementById("stOk").textContent = state.stats.ok;
+  const acc = state.stats.total ? Math.round(state.stats.ok/state.stats.total*100) : 0;
+  document.getElementById("stAcc").textContent = acc + "%";
+}
+
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+/* ===========================================================
+   أدوات الخلط
+   =========================================================== */
+function shuffle(a){
+  const b = a.slice();
+  for(let i=b.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [b[i],b[j]] = [b[j],b[i]];
+  }
+  return b;
+}
+
+function prepareQuestion(q){
+  const order = shuffle(q.o.map((_,i)=>i));
+  const newOpts = order.map(i => q.o[i]);
+  const newCorrect = order.indexOf(q.c);
+  return Object.assign({}, q, { o: newOpts, c: newCorrect });
+}
+
+/* ===========================================================
+   بناء المواضيع
+   =========================================================== */
+function buildTopics(){
+  const box = document.getElementById("topics");
+  box.innerHTML = "";
+  const counts = {};
+  BANK.forEach(q => counts[q.t] = (counts[q.t]||0)+1);
+  Object.keys(counts).forEach(t => {
+    const d = document.createElement("div");
+    d.className = "topic";
+    d.innerHTML = `
+      <div class="ic">${ICONS[t]||"📘"}</div>
+      <div class="nm">${t}</div>
+      <div class="nmAr">${TOPIC_AR[t]||""}</div>
+      <div class="cnt">${counts[t]} سؤالًا</div>`;
+    d.onclick = () => startQuiz(t);
+    box.appendChild(d);
+  });
+}
+
+/* ===========================================================
+   تشغيل الاختبار
+   =========================================================== */
+function startQuiz(topic){
+  let pool;
+  if(topic === "ALL"){
+    pool = shuffle(BANK).slice(0,20);
+  }else{
+    pool = shuffle(BANK.filter(q => q.t === topic));
+  }
+  state.queue = pool.map(prepareQuestion);
+  state.idx = 0;
+  state.score = 0;
+  state.wrong = [];
+  show("scQuiz");
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q = state.queue[state.idx];
+  if(!q) return endQuiz();
+  state.answered = false;
+
+  document.getElementById("qTopic").textContent =
+    (ICONS[q.t]||"📘") + " " + (TOPIC_AR[q.t]||q.t);
+  document.getElementById("qCount").textContent =
+    (state.idx+1) + " / " + state.queue.length;
+  document.getElementById("qBar").style.width =
+    ((state.idx)/state.queue.length*100) + "%";
+  document.getElementById("qTag").textContent = TYPE_AR[q.type] || q.type;
+
+  document.getElementById("qEn").innerHTML = q.q;
+  document.getElementById("qAr").textContent = q.qAr || "";
+
+  const optsBox = document.getElementById("opts");
+  optsBox.innerHTML = "";
+  const letters = ["A","B","C","D"];
+  q.o.forEach((txt,i) => {
+    const el = document.createElement("div");
+    el.className = "opt";
+    el.innerHTML = `<span class="key">${letters[i]}</span><span>${txt}</span>`;
+    el.onclick = () => pick(i, el);
+    optsBox.appendChild(el);
+  });
+
+  const fb = document.getElementById("fb");
+  fb.className = "fb";
+  fb.classList.remove("show");
+  document.getElementById("btnNext").disabled = true;
+  document.getElementById("btnNext").textContent =
+    (state.idx === state.queue.length-1) ? "النتيجة ←" : "التالي ←";
+}
+
+function pick(i, el){
+  if(state.answered) return;
+  state.answered = true;
+
+  const q = state.queue[state.idx];
+  const opts = document.querySelectorAll(".opt");
+  opts.forEach(o => o.classList.add("locked"));
+
+  const correct = (i === q.c);
+  opts[q.c].classList.add("correct");
+
+  if(!correct){
+    el.classList.add("wrong");
+    state.wrong.push({
+      qEn: q.q, qAr: q.qAr || "",
+      right: q.o[q.c], yours: q.o[i]
+    });
+  }else{
+    state.score++;
+  }
+
+  state.stats.total++;
+  if(correct) state.stats.ok++;
+  saveStats();
+  renderStats();
+
+  const fb = document.getElementById("fb");
+  fb.className = "fb show " + (correct ? "good" : "bad");
+  document.getElementById("fbHead").textContent =
+    correct ? "✅ Correct — إجابة صحيحة"
+            : "❌ Wrong — الصحيح: " + q.o[q.c];
+  document.getElementById("fbAr").innerHTML =
+    `<span class="lbl">ARABIC</span>${q.ar || ""}`;
+  document.getElementById("fbEn").innerHTML =
+    `<span class="lbl">ENGLISH</span>${q.en}`;
+
+  document.getElementById("btnNext").disabled = false;
+}
+
+document.getElementById("btnNext").onclick = () => {
+  state.idx++;
+  if(state.idx >= state.queue.length) endQuiz();
+  else renderQuestion();
+};
+
+/* ===========================================================
+   إنهاء الاختبار والعودة للرئيسية
+   =========================================================== */
+function quitToHome(){
+  if(confirm("هل تريد إنهاء الاختبار والعودة للشاشة الرئيسية؟")){
+    state.queue = []; state.idx = 0;
+    show("scHome");
+  }
+}
+
+/* ===========================================================
+   النتيجة
+   =========================================================== */
+function endQuiz(){
+  const total = state.queue.length || 1;
+  const pct = Math.round(state.score/total*100);
+
+  document.getElementById("rsScore").innerHTML =
+    `${state.score} / ${total}<small>${pct}% — ${
+      pct>=90 ? "ممتاز! 🏆" :
+      pct>=75 ? "جيد جدًا 👏" :
+      pct>=60 ? "جيد، واصل 💪" :
+      "تحتاج مراجعة 📚"
+    }</small>`;
+
+  const box = document.getElementById("rsReview");
+  box.innerHTML = "";
+  if(state.wrong.length === 0){
+    box.innerHTML = `<div class="rItem">🎉 لا توجد أخطاء. أداء مثالي!</div>`;
+  }else{
+    state.wrong.forEach(w => {
+      const d = document.createElement("div");
+      d.className = "rItem";
+      d.innerHTML = `
+        <div class="qEn">${w.qEn}</div>
+        <div class="qAr">${w.qAr}</div>
+        <div class="a">✔ ${w.right}</div>
+        <div class="y">✘ إجابتك: ${w.yours}</div>`;
+      box.appendChild(d);
+    });
+  }
+  show("scResult");
+}
+
+/* ===========================================================
+   الأزرار
+   =========================================================== */
+document.getElementById("btnAll").onclick = () => startQuiz("ALL");
+document.getElementById("btnAgain").onclick = () => startQuiz("ALL");
+document.getElementById("btnHome").onclick = () => show("scHome");
+document.getElementById("btnQuit").onclick = quitToHome;
+document.getElementById("btnReset").onclick = () => {
+  if(confirm("تصفير كل الإحصائيات؟")){
+    state.stats = {total:0, ok:0};
+    saveStats(); renderStats();
+  }
+};
+
+/* الإقلاع */
+loadTheme();
+loadStats();
+renderStats();
+buildTopics();
+</script>
+</body>
+</html>
