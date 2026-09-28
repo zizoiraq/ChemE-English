@@ -229,43 +229,82 @@
 
   footer{text-align:center; color:var(--mut); font-size:.74rem; margin:20px 0 6px}
 
-  @media (max-width:640px){
-    body{padding:8px}
-    header{padding:14px 12px 12px; border-radius:14px}
-    .themeSwitch{top:10px; left:10px; padding:3px}
-    .themeSwitch button{width:28px; height:28px; font-size:.9rem}
-    .univBlock{padding:0 36px}
-    .univBlock .u1{font-size:.82rem}
-    .univBlock .u2{font-size:.76rem}
-    .univBlock .u3{font-size:.72rem}
-    .univBlock .u4{font-size:.92rem}
-    .chip{font-size:.72rem; padding:4px 9px}
-    .panel{padding:14px; border-radius:14px}
-    .panel h2{font-size:.98rem}
-    .panel .sub{font-size:.8rem}
-    .topics{grid-template-columns:repeat(2,1fr); gap:8px}
-    .topic{padding:10px; border-radius:12px}
-    .topic .ic{font-size:1.15rem}
-    .topic .nm{font-size:.82rem}
-    .topic .nmAr{font-size:.7rem}
-    .topic .cnt{font-size:.68rem}
-    .btn{padding:9px 13px; font-size:.82rem}
-    .row{gap:7px}
-    .qEn{font-size:.92rem; padding:11px 12px}
-    .qAr{font-size:.85rem; padding:9px 12px}
-    .opt{padding:10px 12px; font-size:.88rem; gap:9px}
-    .opt .key{min-width:26px; height:26px; font-size:.78rem}
-    .fb .head{font-size:.86rem}
-    .fb .en{font-size:.82rem}
-    .fb .ar{font-size:.84rem}
-    .score{font-size:2rem}
-    .score small{font-size:.85rem}
+  /* ===== MOBILE ===== */
+  @media (max-width:720px){
+    body{ padding:8px 8px 12px; background-attachment:scroll; }
+
+    /* هيدر مضغوط */
+    header{ padding:10px 10px 8px; border-radius:12px; }
+    .themeSwitch{ top:8px; left:8px; padding:3px; gap:3px; }
+    .themeSwitch button{ width:26px; height:26px; font-size:.82rem; border-radius:7px; }
+    .univBlock{ padding:0 30px; gap:1px; }
+    .univBlock .u1{ font-size:.72rem; }
+    .univBlock .u2{ font-size:.68rem; }
+    .univBlock .u3{ font-size:.6rem; line-height:1.3; }
+    .univBlock .u4{ font-size:.82rem; margin-top:5px; }
+    .statsBar{ margin-top:7px; gap:5px; }
+    .chip{ font-size:.64rem; padding:3px 7px; }
+
+    /* لوحة السؤال مضغوطة */
+    #scQuiz .panel{ padding:11px 11px 0; }
+    #scQuiz .meta{ font-size:.72rem; margin-bottom:6px; }
+    #scQuiz .bar{ height:6px; }
+    #scQuiz .qtag{ font-size:.64rem; padding:2px 8px; margin-bottom:6px; }
+
+    .qEn{ font-size:.88rem; padding:10px 11px; line-height:1.5; }
+    .qAr{ font-size:.82rem; padding:8px 11px; }
+
+    .opts{ gap:7px; margin-top:10px; }
+    .opt{ padding:9px 11px; font-size:.86rem; gap:8px; border-radius:11px; }
+    .opt .key{ min-width:24px; height:24px; font-size:.74rem; border-radius:7px; }
+
+    .fb{ margin-top:10px; padding:10px; }
+    .fb .head{ font-size:.82rem; margin-bottom:6px; }
+    .fb .ar{ font-size:.8rem; padding-top:6px; margin-top:6px; }
+    .fb .en{ font-size:.78rem; padding-top:6px; }
+
+    /* ← الأزرار ثابتة أسفل الشاشة */
+    #scQuiz .row{
+      position:sticky;
+      bottom:0;
+      background:var(--card);
+      padding:10px 0 8px;
+      padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+      margin-top:10px;
+      border-top:1px solid var(--line);
+      z-index:10;
+      box-shadow:0 -8px 16px rgba(0,0,0,.08);
+      gap:7px;
+    }
+    #scQuiz .row .btn{
+      flex:1;
+      min-width:0;
+      padding:11px 8px;
+      font-size:.8rem;
+      white-space:nowrap;
+    }
+    #scQuiz .row .btn.primary{ flex:1.2; }
+
+    /* الشاشة الرئيسية: شبكة عمودين */
+    .topics{ grid-template-columns:repeat(2,1fr); gap:8px; }
+    .topic{ padding:10px; border-radius:12px; }
+    .topic .ic{ font-size:1.15rem; }
+    .topic .nm{ font-size:.82rem; }
+    .topic .nmAr{ font-size:.7rem; }
+    .topic .cnt{ font-size:.68rem; }
+    .panel{ padding:14px; border-radius:14px; }
+    .panel h2{ font-size:.98rem; }
+    .panel .sub{ font-size:.8rem; }
+    .btn{ padding:9px 13px; font-size:.82rem; }
+    .score{ font-size:2rem; }
+    .score small{ font-size:.85rem; }
   }
   @media (max-width:380px){
-    .topics{grid-template-columns:1fr}
-    .univBlock{padding:0 30px}
-    .univBlock .u1{font-size:.76rem}
-    .univBlock .u4{font-size:.84rem}
+    .topics{ grid-template-columns:1fr; }
+    .univBlock{ padding:0 26px; }
+    .univBlock .u1{ font-size:.68rem; }
+    .univBlock .u4{ font-size:.76rem; }
+    #scQuiz .row .btn{ font-size:.74rem; padding:10px 6px; }
   }
 </style>
 </head>
@@ -329,7 +368,7 @@
 
       <div class="row">
         <button class="btn primary" id="btnNext" disabled>التالي ←</button>
-        <button class="btn" id="btnQuit">⏹ إنهاء الاختبار والعودة للرئيسية</button>
+        <button class="btn" id="btnQuit">⏹ إنهاء والعودة</button>
       </div>
     </div>
   </section>
@@ -575,7 +614,7 @@ const BANK = [
 ];
 
 /* ===========================================================
-   الحالة
+   الحالة والإعدادات
    =========================================================== */
 const state = {
   queue: [], idx: 0, score: 0, answered: false,
@@ -597,9 +636,7 @@ const TOPIC_AR = {
 };
 const TYPE_AR = {"meaning":"معنى الكلمة","translation":"ترجمة","fill-blank":"أكمل الفراغ","synonym":"مرادف"};
 
-/* ===========================================================
-   الثيمات
-   =========================================================== */
+/* الثيمات */
 const THEMES = ["dark","light","sky"];
 function applyTheme(t){
   if(!THEMES.includes(t)) t = "dark";
@@ -618,9 +655,7 @@ document.querySelectorAll(".themeSwitch button").forEach(b=>{
   b.onclick = () => applyTheme(b.dataset.theme);
 });
 
-/* ===========================================================
-   الإحصائيات
-   =========================================================== */
+/* الإحصائيات */
 function loadStats(){
   try{
     const s = JSON.parse(localStorage.getItem("cheme_vocab_stats") || "null");
@@ -643,9 +678,7 @@ function show(id){
   window.scrollTo({top:0, behavior:"smooth"});
 }
 
-/* ===========================================================
-   أدوات الخلط
-   =========================================================== */
+/* أدوات الخلط */
 function shuffle(a){
   const b = a.slice();
   for(let i=b.length-1;i>0;i--){
@@ -654,7 +687,6 @@ function shuffle(a){
   }
   return b;
 }
-
 function prepareQuestion(q){
   const order = shuffle(q.o.map((_,i)=>i));
   const newOpts = order.map(i => q.o[i]);
@@ -662,9 +694,7 @@ function prepareQuestion(q){
   return Object.assign({}, q, { o: newOpts, c: newCorrect });
 }
 
-/* ===========================================================
-   بناء المواضيع
-   =========================================================== */
+/* بناء المواضيع */
 function buildTopics(){
   const box = document.getElementById("topics");
   box.innerHTML = "";
@@ -683,9 +713,7 @@ function buildTopics(){
   });
 }
 
-/* ===========================================================
-   تشغيل الاختبار
-   =========================================================== */
+/* تشغيل الاختبار */
 function startQuiz(topic){
   let pool;
   if(topic === "ALL"){
@@ -734,6 +762,9 @@ function renderQuestion(){
   document.getElementById("btnNext").disabled = true;
   document.getElementById("btnNext").textContent =
     (state.idx === state.queue.length-1) ? "النتيجة ←" : "التالي ←";
+
+  /* ← نمرّر إلى أعلى لوحة السؤال */
+  window.scrollTo({top:0, behavior:"smooth"});
 }
 
 function pick(i, el){
@@ -773,6 +804,12 @@ function pick(i, el){
     `<span class="lbl">ENGLISH</span>${q.en}`;
 
   document.getElementById("btnNext").disabled = false;
+
+  /* ← نمرّر إلى الأسفل قليلًا لعرض التغذية الراجعة */
+  setTimeout(()=>{
+    const fbEl = document.getElementById("fb");
+    if(fbEl) fbEl.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }, 100);
 }
 
 document.getElementById("btnNext").onclick = () => {
@@ -781,9 +818,7 @@ document.getElementById("btnNext").onclick = () => {
   else renderQuestion();
 };
 
-/* ===========================================================
-   إنهاء الاختبار والعودة للرئيسية
-   =========================================================== */
+/* إنهاء الاختبار والعودة للرئيسية */
 function quitToHome(){
   if(confirm("هل تريد إنهاء الاختبار والعودة للشاشة الرئيسية؟")){
     state.queue = []; state.idx = 0;
@@ -791,9 +826,7 @@ function quitToHome(){
   }
 }
 
-/* ===========================================================
-   النتيجة
-   =========================================================== */
+/* النتيجة */
 function endQuiz(){
   const total = state.queue.length || 1;
   const pct = Math.round(state.score/total*100);
@@ -825,9 +858,7 @@ function endQuiz(){
   show("scResult");
 }
 
-/* ===========================================================
-   الأزرار
-   =========================================================== */
+/* الأزرار */
 document.getElementById("btnAll").onclick = () => startQuiz("ALL");
 document.getElementById("btnAgain").onclick = () => startQuiz("ALL");
 document.getElementById("btnHome").onclick = () => show("scHome");
